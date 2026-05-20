@@ -1,58 +1,33 @@
-# TORSION Community Edition
+# 🏎️ PhysicsRacingSimulator
 
-## A Custom Vehicle Physics Implementation
-TORSION CE is a custom vehicle physics implementation built using Unity and designed to teach users how to develop
-their own real-time vehicle physics implementations within their own environments, whether it be Unity,
-another game engine, or an environment like MATLAB.
+> **물리 기반 시뮬레이션 및 게임 엔진을 활용한 레이싱 게임 제작**
 
-* Straight up full custom vehicle physics for Unity that's easily scalable and ready to import into your own Unity project
-* Understand the fundamental vehicle dynamic concepts that go into developing a real-time simulation
-* Learn how to build TORSION from scratch with the accompanying YouTube tutorial series
-* Join the Vehicle Physics Discord server and get access to VD papers, Git Repos, and a community of hundreds dedicated to vehicle physics development
+## 📝 프로젝트 개요 (Project Overview)
 
-![SplashImage2](https://github.com/user-attachments/assets/11677fcc-e0ac-43ac-83de-717fdf46ec43)
+본 프로젝트는 상용 게임 엔진과 오픈소스 라이브러리를 활용하여 물리 기반 시뮬레이션을 구현한 레이싱 게임을 
+제작하는 것을 목표로 합니다.<br>
+단순한 레이싱 게임을 넘어 강체 역학이 적용된 물리 기반 시뮬레이션을 통해 차량의 사실적인 이동과 충돌 등의 
+상호작용을 구현하며, 다양한 오픈소스 라이브러리를 적용할 예정입니다.<br>
+특히 SOLID 원칙을 준수하는 객체지향 프로그래밍을 통해 확장성이 뛰어나며 오픈소스 생태계에서 협업하기 
+용이한 구조로 개발하는 것을 지향합니다.<br>
+라이브러리의 구조를 파악하고 학습하며 오픈소스 생태계 및 개발에 대해 심층적인 학습을 하는 것과 더불어, 
+외부 데이터(JSON, XML, CSV 등)를 통해 차량의 파라미터를 조절할 수 있는 환경을 구축하며, 코드에 종속되지 
+않는 다양한 물리 실험이 가능한 유연한 개발 환경을 구현합니다.<br>
+## 👥 팀원 소개 (Team Members)
 
-## Assets Used
-Some free 3rd party assets included within the project to help showcase TORSION
+| 역할 | 이름 | GitHub Profile |
+| :--- | :--- | :--- |
+| **팀장 (물리 시뮬레이션 구현, 게임 플로우 구현)** | 김현 | [@kimbap0213](https://www.google.com/search?q=https://github.com/kimbap0213) |
+| **팀원 (물리 시뮬레이션 구현)** | 현진협 | [@kkcc7222](https://www.google.com/search?q=https://github.com/kkcc7222) |
+| **팀원 (게임 플로우 구현)** | 이현서 | [@ggoranii](https://www.google.com/search?q=https://github.com/ggoranii) |
+| **팀원 (외부 데이터 연동)** | 이현석 | [@meji5](https://www.google.com/search?q=https://github.com/meji5) |
 
-Low Poly Car Pack: https://assetstore.unity.com/packages/3d/vehicles/land/low-poly-car-vehicle-pack-259182
+## 🛠️ 기술 스택 (Tech Stack)
+### **Engine & Language**
 
-Drift Race Track Free: https://sketchfab.com/3d-models/drift-race-track-free-b4108132c93f4736957d97e274fbd11e
+  * **Unity:** 6000.3.8f1
+  * **C\#:** .NET Standard 2.1
 
-Cartoon Race Track – Oval: https://sketchfab.com/3d-models/cartoon-race-track-oval-f88b33a3a65c4965b03578dc7f4f6eb4
+### **Open Source Library**
 
-![SplashImage1](https://github.com/user-attachments/assets/b4c39efb-dd9e-4c6a-ba61-1e10cf755577)
-
-## Build TORSION From Scratch!
-
-<a href="https://www.youtube.com/playlist?list=PL2uvZKBCoAYnfkfYm47nP5S6UeBPJPbEF"
-target="_blank">
-<img src="https://i9.ytimg.com/vi/MoYeX5WoXvQ/mqdefault.jpg?v=6804f149&sqp=COSIj8EG&rs=AOn4CLDssM5DTS7PqD1z7vZwi6iod1a8pg" alt="Watch the series" width="228"
-height="128" border="10" />
-</a>
-
-Watch the series on YouTube to understand the underlying vehicle dynamics concepts while also building TORSION CE along the way.
-
-![SplashImage3](https://github.com/user-attachments/assets/38ded324-d78c-4941-af50-b26f781c501f)
-
-## Join The Vehicle Physics Community On Discord!
-
-<a href="https://discord.com/invite/zbZY6YRZqC"
-target="_blank">
-<img src="https://www.make.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fun655fb9wln6%2FappIcon-discord%2Feb5e526c7f6449f336b479bc00d73230%2Fdiscord.png&w=3840&q=90" alt="Join the community" width="128"
-height="128" border="10" />
-</a>
-
-Connect with hundreds of developers actively improving the open-source vehicle physics scene!
-
-## How To Install
-1. For best compatibility, use Unity 2020.3.48f1 (2020 LTS) https://unity.com/releases/editor/archive
-2. Download your prefered branch from this repository
-3. Unzip and extract repo into a prefered folder
-4. In Unity Hub, go to the "Projects" tab and click the "Add" button and select the folder containing the extracted project
-5. Open the project from the "Projects" tab in Unity Hub
-
-## Report An Issue
-  **IF YOUR ISSUE IS A GENERAL QUESTION ABOUT VEHICLE PHYSICS PLEASE POST ON THE DISCORD SERVER**
-
-  Found an issue with the project? Create a new issue for this Repo and describe the problem at hand. If you feel that you have found a bug and would like to contribute, creating a pull request is also an option.
+  * **[TORSION Community Edition](https://github.com/LemonMontage420/TORSION-Community-Edition)**

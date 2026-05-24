@@ -22,9 +22,8 @@ namespace RacingSimulation.Runtime
         [SerializeField] private float throttleSensitivity;
         [SerializeField] private float clutchSensitivity;
         [SerializeField] private float steeringSensitivity;
-        [SerializeField] private float finalDriveRatio = 3.62f;
-
-
+        [SerializeField] private float finalDriveRatio;
+        
         [Header("Dimensions")]
         [SerializeField] private float wheelbase;
         [SerializeField] private float rearTrackLength;

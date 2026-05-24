@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bfcd9e80b164993aeee65acf54362ee, type: 3}
+  m_Name: EngineData
+  m_EditorClassIdentifier: Assembly-CSharp::RacingSimulation.Data.EngineData
+  idleThrottle: 0.5
+  throttleStability: 0.85
+  idleRpm: 800
+  redlineRpm: 7200
+  throttleCutoffDuration: 0.08
+  torqueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.33828136
+      outSlope: 0.33828136
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.037424184
+    - serializedVersion: 3
+      time: 4500
+      value: 500
+      inSlope: 0.0035471602
+      outSlope: 0.0035471602
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.055010032
+    - serializedVersion: 3
+      time: 10000
+      value: 0
+      inSlope: -0.10567819
+      outSlope: -0.10567819
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.042234197
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  starterTorque: 60
+  initialFrictionTorque: 40
+  frictionLossCoefficient: 0.025
+  inertia: 0.5

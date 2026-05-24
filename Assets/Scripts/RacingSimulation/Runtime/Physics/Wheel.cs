@@ -1,3 +1,4 @@
+using RacingSimulation.Data;
 using RacingSimulation.Utils;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -6,41 +7,31 @@ namespace RacingSimulation.Runtime.Physics
 {
     public class Wheel : MonoBehaviour
     {
-        private float _deltaTime;
         [SerializeField] private Rigidbody vehicleBody;
+        public float CurrentLength { get; private set; }
+        public float WheelAngularVelocity { get; private set; }
 
-        [Header("Hit Detection - Inputs")]
-        [SerializeField] private LayerMask layerMask;
+        private WheelData _data;
+        private float _deltaTime;
 
-        [Header("Hit Detection - Outputs")] 
         private bool _isGrounded;
         private RaycastHit _hit;
-
-        [Header("Suspension - Inputs")]
-        [SerializeField] private float restLength;
-        [SerializeField] private float springStiffness;
-        [SerializeField] private float damperStiffness;
-
-        [Header("Suspension - Outputs")] 
-        public float CurrentLength { get; private set; }
+        
         private Vector3 _suspensionForce;
         private float _lastLength;
-
-        [Header("Wheel Motion - Inputs")]
-        [SerializeField] private float wheelRadius;
-        [SerializeField] private float wheelInertia;
-        
-        [Header("Wheel Motion - Outputs")]
-        public float WheelAngularVelocity { get; private set; }
 
         private Vector3 _linearVelocityLocal;
         private Vector3 _angularVelocityLocal;
         private Vector3 _longitudinalDir;
         private Vector3 _lateralDir;
         
-        [Header("Friction - Outputs")]
         private float _lateralGrip;
         private float _longitudinalGrip;
+
+        public void Init(WheelData data)
+        {
+            _data = data;
+        }
 
         public void UpdatePhysicsPre(float delta)
         {
@@ -48,12 +39,12 @@ namespace RacingSimulation.Runtime.Physics
             _deltaTime = delta;
             
             //Fire a raycast to get the distance between the toplink and the ground
-            _isGrounded = UnityEngine.Physics.Raycast(transform.position, -transform.up, out _hit, restLength + wheelRadius, layerMask);
+            _isGrounded = UnityEngine.Physics.Raycast(transform.position, -transform.up, out _hit, _data.RestLength + _data.WheelRadius, _data.LayerMask);
             
             if (_isGrounded) //If we hit something,
             {
                 //Calculate and apply the suspension force (Fz)
-                CurrentLength = _hit.distance - wheelRadius;
+                CurrentLength = _hit.distance - _data.WheelRadius;
                 CalculateSuspensionForce();
                 ApplySuspensionForce();
 
@@ -96,12 +87,12 @@ namespace RacingSimulation.Runtime.Physics
         void CalculateSuspensionForce()
         {
             //Hooke's Law
-            float springDisplacement = restLength - CurrentLength;
-            float springForce = springDisplacement * springStiffness;
+            float springDisplacement = _data.RestLength - CurrentLength;
+            float springForce = springDisplacement * _data.SpringStiffness;
 
             //Damping Equation
             float springVelocity = (_lastLength - CurrentLength) / _deltaTime;
-            float damperForce = springVelocity * damperStiffness;
+            float damperForce = springVelocity * _data.DamperStiffness;
 
             float suspensionForce = springForce + damperForce;
             _suspensionForce = _hit.normal.normalized * suspensionForce; //Suspension force acts perpendicular to the contact patch
@@ -118,7 +109,7 @@ namespace RacingSimulation.Runtime.Physics
         {
             //Get the velocity of the wheel relative to the ground
             _linearVelocityLocal = transform.InverseTransformDirection(vehicleBody.GetPointVelocity(_hit.point)); //RB.GetPointVelocity Does Not Update w/ Substeps, If There's A Way To Get This Value Without The Use Of RB Functions, We Can Substep The Whole VP Implementation And Keep The Timestep @ 0.02
-            _angularVelocityLocal = _linearVelocityLocal / wheelRadius; // omega = v / r
+            _angularVelocityLocal = _linearVelocityLocal / _data.WheelRadius; // omega = v / r
 
             //Lateral and longitudinal directions of motion of the wheel
             _longitudinalDir = Vector3.ProjectOnPlane(transform.forward, _hit.normal).normalized;
@@ -145,11 +136,11 @@ namespace RacingSimulation.Runtime.Physics
         private void CalculateLongitudinalFriction(float torque)
         {
             //Calculate Torque Acting On Wheel
-            float frictionTorque = _longitudinalGrip * Mathf.Max(_suspensionForce.y, 0.0f) * wheelRadius;
+            float frictionTorque = _longitudinalGrip * Mathf.Max(_suspensionForce.y, 0.0f) * _data.WheelRadius;
             float totalTorque = torque - frictionTorque;
 
             //Integrate Angular Velocity
-            float wheelAngularAcceleration = totalTorque / wheelInertia;
+            float wheelAngularAcceleration = totalTorque / _data.WheelInertia;
             WheelAngularVelocity += wheelAngularAcceleration * _deltaTime;
 
             //Calculate Wheel Slip (Longitduinal)
@@ -170,14 +161,14 @@ namespace RacingSimulation.Runtime.Physics
 
         void ResetValues()
         {
-            _lastLength = CurrentLength = restLength; //Fully extend suspension
+            _lastLength = CurrentLength = _data.RestLength; //Fully extend suspension
             _lateralGrip = _longitudinalGrip = 0.0f; //Set friction coefficients to zero
             _suspensionForce = Vector3.zero; //Set forces to zero
         }
 
         void GetWheelMotionInAir(float torque)
         {
-            float wheelAngularAcceleration = torque / wheelInertia;
+            float wheelAngularAcceleration = torque / _data.WheelInertia;
             WheelAngularVelocity += wheelAngularAcceleration * _deltaTime;
         }
     }

@@ -1,15 +1,20 @@
+using RacingSimulation.Data;
 using UnityEngine;
 
 namespace RacingSimulation.Runtime.Physics
 {
     public class Clutch : MonoBehaviour
     {
-        [Range(0.0f, 1.0f)]
-        [SerializeField] private float clutchDamping;
-        [SerializeField] private float clutchTorqueCapacity;
-        [SerializeField] private float clutchStiffness;
-        
         public float ClutchTorque { get; private set; }
+        
+        private ClutchData _data;
+        private float _clutchDamping;
+
+        public void Init(ClutchData data)
+        {
+            _data = data;
+            _clutchDamping = _data.ClutchDamping;
+        }
 
         public void UpdatePhysics(float clutchInput, bool inGear, float engineVelocity, float transmissionVelocity)
         {
@@ -19,9 +24,9 @@ namespace RacingSimulation.Runtime.Physics
             float slip = inGear ? engineVelocity - transmissionVelocity : 0f;
 
             //Calculate torque
-            float torque = clutchEngagement * slip * clutchStiffness; //tau = omega * k
-            ClutchTorque += (torque - ClutchTorque) * clutchDamping; //Damping
-            ClutchTorque = Mathf.Clamp(ClutchTorque, -clutchTorqueCapacity, clutchTorqueCapacity); //Make sure it doesn't exceed the torque capacity of the clutch
+            float torque = clutchEngagement * slip * _data.ClutchStiffness; //tau = omega * k
+            ClutchTorque += (torque - ClutchTorque) * _clutchDamping; //Damping
+            ClutchTorque = Mathf.Clamp(ClutchTorque, -_data.ClutchTorqueCapacity, _data.ClutchTorqueCapacity); //Make sure it doesn't exceed the torque capacity of the clutch
         }
     }
 }

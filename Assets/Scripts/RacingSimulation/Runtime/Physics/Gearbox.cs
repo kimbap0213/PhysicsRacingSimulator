@@ -1,21 +1,21 @@
 using System.Collections;
+using RacingSimulation.Data;
 using UnityEngine;
 
 namespace RacingSimulation.Runtime.Physics
 {
     public class Gearbox : MonoBehaviour
     {
-        [SerializeField] private float[] gearRatios;
-        [SerializeField] private float shiftDuration;
-
         public bool InGear { get; private set; }
-        
+
+        private GearboxData _data;
         private int _currentGear;
         private float _currentGearRatio;
         private Coroutine _currentShiftCoroutine = null;
 
-        public void Init()
+        public void Init(GearboxData data)
         {
+            _data = data;
             InGear = false;
             _currentGear = 1;
         }
@@ -23,7 +23,7 @@ namespace RacingSimulation.Runtime.Physics
         public void UpdatePhysics()
         {
             //Geartrain
-            _currentGearRatio = InGear ? gearRatios[_currentGear] : 0.0f;
+            _currentGearRatio = InGear ? _data.GearRatios[_currentGear] : 0.0f;
         }
     
         public float GetDownstreamTorque(float torque) //Uncomment once drivetrain is complete
@@ -39,7 +39,7 @@ namespace RacingSimulation.Runtime.Physics
         public void ShiftUp()
         {
             //If not currently in top gear,
-            if (_currentShiftCoroutine != null || _currentGear >= gearRatios.Length - 1)
+            if (_currentShiftCoroutine != null || _currentGear >= _data.MaxGear)
                 return;
 
             _currentShiftCoroutine = StartCoroutine(ShiftUpCoroutine());
@@ -62,7 +62,7 @@ namespace RacingSimulation.Runtime.Physics
             _currentGear = 1;
 
             //Wait,
-            yield return new WaitForSeconds(shiftDuration);
+            yield return new WaitForSeconds(_data.ShiftDuration);
 
             //Shift up
             _currentGear = nextGear;
@@ -79,7 +79,7 @@ namespace RacingSimulation.Runtime.Physics
             _currentGear = 1;
 
             //Wait,
-            yield return new WaitForSeconds(shiftDuration);
+            yield return new WaitForSeconds(_data.ShiftDuration);
 
             //Shift down
             _currentGear = nextGear;

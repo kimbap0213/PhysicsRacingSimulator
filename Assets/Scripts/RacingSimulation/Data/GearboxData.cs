@@ -7,5 +7,9 @@ namespace RacingSimulation.Data
     {
         [SerializeField] private float[] gearRatios;
         [SerializeField] private float shiftDuration;
+        
+        public float[] GearRatios => gearRatios;
+        public float ShiftDuration => shiftDuration;
+        public int MaxGear => GearRatios.Length - 1;
     }
 }

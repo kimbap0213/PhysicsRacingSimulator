@@ -9,5 +9,9 @@ namespace RacingSimulation.Data
         [SerializeField] private float clutchDamping;
         [SerializeField] private float clutchTorqueCapacity;
         [SerializeField] private float clutchStiffness;
+
+        public float ClutchDamping => clutchDamping;
+        public float ClutchTorqueCapacity => clutchTorqueCapacity;
+        public float ClutchStiffness => clutchStiffness;
     }
 }

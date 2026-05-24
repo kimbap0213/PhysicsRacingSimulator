@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: SteeringData2
   m_EditorClassIdentifier: Assembly-CSharp::RacingSimulation.Data.SteeringData
   steeringBehavior: 1
+  wheelbase: 2.75
+  rearTrackLength: 1.68
+  turningRadius: 4.56

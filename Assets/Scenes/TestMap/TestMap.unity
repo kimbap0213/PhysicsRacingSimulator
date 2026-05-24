@@ -165,14 +165,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehicleBody: {fileID: 6150340945011040540}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 63
-  restLength: 0.5
-  springStiffness: 80000
-  damperStiffness: 12000
-  wheelRadius: 0.32
-  wheelInertia: 1.5
 --- !u!114 &413757635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 011ff56645dedaf4aa44ec4b115efc4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steeringBehavior: 2
 --- !u!1 &464806341
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,14 +258,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehicleBody: {fileID: 6150340945011040540}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 63
-  restLength: 0.5
-  springStiffness: 80000
-  damperStiffness: 12000
-  wheelRadius: 0.32
-  wheelInertia: 1.5
 --- !u!114 &476895883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,7 +270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 011ff56645dedaf4aa44ec4b115efc4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steeringBehavior: 2
 --- !u!1 &493035302
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,14 +467,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehicleBody: {fileID: 6150340945011040540}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 63
-  restLength: 0.5
-  springStiffness: 60000
-  damperStiffness: 12000
-  wheelRadius: 0.32
-  wheelInertia: 1.5
 --- !u!114 &716377556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,7 +479,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 011ff56645dedaf4aa44ec4b115efc4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steeringBehavior: 0
+--- !u!1 &723640317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 723640318}
+  - component: {fileID: 723640319}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &723640318
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723640317}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &723640319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723640317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea3b955455c44deb538cfaaf6a1bd33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RacingSimulation.Core.Controllers.VehicleTuningController
+  vehicle: {fileID: 6150340945011040541}
+  vehicleData: {fileID: 11400000, guid: 726514c391693474dbde2745367f0572, type: 2}
 --- !u!1 &739150777
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,14 +747,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehicleBody: {fileID: 6150340945011040540}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 63
-  restLength: 0.5
-  springStiffness: 60000
-  damperStiffness: 12000
-  wheelRadius: 0.32
-  wheelInertia: 1.5
 --- !u!114 &1627373742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,7 +759,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 011ff56645dedaf4aa44ec4b115efc4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steeringBehavior: 1
 --- !u!1 &1648994226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1795,13 +1805,6 @@ MonoBehaviour:
   - {fileID: 7665570989126687472}
   - {fileID: 4519379382267222902}
   engineAudio: {fileID: 739150779}
-  throttleSensitivity: 10
-  clutchSensitivity: 10
-  steeringSensitivity: 10
-  finalDriveRatio: 3.62
-  wheelbase: 2.75
-  rearTrackLength: 1.68
-  turningRadius: 4.56
 --- !u!1 &7665570989126687471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1879,48 +1882,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5772575b799faeb478b5f75fb8b801d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleThrottle: 0.5
-  throttleStability: 0.85
-  idleRpm: 800
-  redlineRpm: 7200
-  throttleCutoffDuration: 0.08
-  torqueCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.33828136
-      outSlope: 0.33828136
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.037424184
-    - serializedVersion: 3
-      time: 4500
-      value: 500
-      inSlope: 0.0035471602
-      outSlope: 0.0035471602
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.055010032
-    - serializedVersion: 3
-      time: 10000
-      value: 0
-      inSlope: -0.10567819
-      outSlope: -0.10567819
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.042234197
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  starterTorque: 60
-  initialFrictionTorque: 40
-  frictionLossCoefficient: 0.025
-  inertia: 0.5
 --- !u!114 &8249986069859396580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1933,16 +1894,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0225a6f96c447e848976a17a466530a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gearRatios:
-  - -3.75
-  - 0
-  - 4.23
-  - 2.53
-  - 1.67
-  - 1.23
-  - 1
-  - 0.83
-  shiftDuration: 0.2
 --- !u!114 &8249986069859396582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1955,9 +1906,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a642b0593b3b6d4ebb25c9f1b17434d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clutchDamping: 0.7
-  clutchTorqueCapacity: 500
-  clutchStiffness: 35
 --- !u!4 &8326642919915325586
 Transform:
   m_ObjectHideFlags: 0
@@ -2005,3 +1953,4 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1648994230}
   - {fileID: 1849854389}
+  - {fileID: 723640318}

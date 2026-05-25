@@ -17,10 +17,10 @@
 
 | 역할 | 이름 | GitHub Profile |
 | :--- | :--- | :--- |
-| **팀장 (물리 시뮬레이션 구현, 게임 플로우 구현)** | 김현 | [@kimbap0213](https://www.google.com/search?q=https://github.com/kimbap0213) |
-| **팀원 (물리 시뮬레이션 구현)** | 현진협 | [@kkcc7222](https://www.google.com/search?q=https://github.com/kkcc7222) |
-| **팀원 (게임 플로우 구현)** | 이현서 | [@ggoranii](https://www.google.com/search?q=https://github.com/ggoranii) |
-| **팀원 (외부 데이터 연동)** | 이현석 | [@meji5](https://www.google.com/search?q=https://github.com/meji5) |
+| **팀장 (물리 시뮬레이션 구현, 게임 플로우 구현)** | 김현 | [@kimbap0213](https://github.com/kimbap0213) |
+| **팀원 (물리 시뮬레이션 구현)** | 현진협 | [@kkcc7222](https://github.com/kkcc7222) |
+| **팀원 (게임 플로우 구현)** | 이현서 | [@ggoranii](https://github.com/ggoranii) |
+| **팀원 (외부 데이터 연동)** | 이현석 | [@meji5](https://github.com/meji5) |
 
 ## 🛠️ 기술 스택 (Tech Stack)
 ### **Engine & Language**

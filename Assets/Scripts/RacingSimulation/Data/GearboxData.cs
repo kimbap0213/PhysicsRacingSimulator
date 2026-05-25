@@ -11,5 +11,11 @@ namespace RacingSimulation.Data
         public float[] GearRatios => gearRatios;
         public float ShiftDuration => shiftDuration;
         public int MaxGear => GearRatios.Length - 1;
+
+        public void Initialize(float[] gearRatios, float shiftDuration)
+        {
+            this.gearRatios = gearRatios;
+            this.shiftDuration = shiftDuration;
+        }
     }
 }

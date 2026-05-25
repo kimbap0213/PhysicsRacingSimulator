@@ -27,5 +27,20 @@ namespace RacingSimulation.Data
         public float ClutchSensitivity => clutchSensitivity;
         public float SteeringSensitivity => steeringSensitivity;
         public float FinalDriveRatio => finalDriveRatio;
+
+        public void Initialize(EngineData engineData, ClutchData clutchData, GearboxData gearboxData,
+            WheelData[] wheelDatas, SteeringData[] steeringDatas, float throttleSensitivity, float clutchSensitivity,
+            float steeringSensitivity, float finalDriveRatio)
+        {
+            this.engineData = engineData;
+            this.clutchData = clutchData;
+            this.gearboxData = gearboxData;
+            this.wheelDatas = wheelDatas;
+            this.steeringDatas = steeringDatas;
+            this.throttleSensitivity = throttleSensitivity;
+            this.clutchSensitivity = clutchSensitivity;
+            this.steeringSensitivity = steeringSensitivity;
+            this.finalDriveRatio = finalDriveRatio;
+        }
     }
 }

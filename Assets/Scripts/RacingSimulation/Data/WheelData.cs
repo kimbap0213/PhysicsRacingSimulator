@@ -22,5 +22,16 @@ namespace RacingSimulation.Data
         [SerializeField] private float wheelInertia;
         public float WheelRadius => wheelRadius;
         public float WheelInertia => wheelInertia;
+
+        public void Initialize(LayerMask layerMask, float restLength, float springStiffness, float damperStiffness,
+            float wheelRadius, float wheelInertia)
+        {
+            this.layerMask = layerMask;
+            this.restLength = restLength;
+            this.springStiffness = springStiffness;
+            this.damperStiffness = damperStiffness;
+            this.wheelRadius = wheelRadius;
+            this.wheelInertia = wheelInertia;
+        }
     }
 }

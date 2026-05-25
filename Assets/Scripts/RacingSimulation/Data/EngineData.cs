@@ -35,5 +35,20 @@ namespace RacingSimulation.Data
         public float InitialFrictionTorque => initialFrictionTorque;
         public float FrictionLossCoefficient => frictionLossCoefficient;
         public float Inertia => inertia;
+
+        public void Init(float idleThrottle, float throttleStability, float idleRpm, float redlineRpm,
+            float throttleCutoffDuration, float starterTorque, float initialFrictionTorque,
+            float frictionLossCoefficient, float inertia)
+        {
+            this.idleThrottle = idleThrottle;
+            this.throttleStability = throttleStability;
+            this.idleRpm = idleRpm;
+            this.redlineRpm = redlineRpm;
+            this.throttleCutoffDuration = throttleCutoffDuration;
+            this.starterTorque = starterTorque;
+            this.initialFrictionTorque = initialFrictionTorque;
+            this.frictionLossCoefficient = frictionLossCoefficient;
+            this.inertia = inertia;
+        }
     }
 }

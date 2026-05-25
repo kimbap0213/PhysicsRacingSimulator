@@ -13,5 +13,12 @@ namespace RacingSimulation.Data
         public float ClutchDamping => clutchDamping;
         public float ClutchTorqueCapacity => clutchTorqueCapacity;
         public float ClutchStiffness => clutchStiffness;
+
+        public void Initialize(float clutchDamping, float clutchTorqueCapacity, float clutchStiffness)
+        {
+            this.clutchDamping = clutchDamping;
+            this.clutchTorqueCapacity = clutchTorqueCapacity;
+            this.clutchStiffness = clutchStiffness;
+        }
     }
 }

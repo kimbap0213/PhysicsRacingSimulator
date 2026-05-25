@@ -17,5 +17,14 @@ namespace RacingSimulation.Data
         public float Wheelbase => wheelbase;
         public float RearTrackLength => rearTrackLength;
         public float TurningRadius => turningRadius;
+
+        public void Initialize(SteeringBehavior steeringBehavior, float wheelbase, float rearTrackLength,
+            float turningRadius)
+        {
+            this.steeringBehavior = steeringBehavior;
+            this.wheelbase = wheelbase;
+            this.rearTrackLength = rearTrackLength;
+            this.turningRadius = turningRadius;
+        }
     }
 }

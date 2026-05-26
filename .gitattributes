@@ -1,2 +1,2 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+* text=auto eol=lf
+#조장님이 linuxos를 사용하시는것 같기에 기본 저장 형태를 lf로 바꾸어 놓겠습니다.

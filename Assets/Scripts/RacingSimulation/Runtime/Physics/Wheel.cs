@@ -27,6 +27,11 @@ namespace RacingSimulation.Runtime.Physics
         
         private float _lateralGrip;
         private float _longitudinalGrip;
+        private float _runtimeGripMultiplier = 1.0f;
+        public void SetGripMultiplier(float multiplier)
+        {
+            _runtimeGripMultiplier = multiplier;
+        }
 
         public void Init(WheelData data)
         {
@@ -130,7 +135,7 @@ namespace RacingSimulation.Runtime.Physics
             //Transition Between Low And High Speed Friction Models Based Off Of Wheel Speed
             float slipAngle = Mathf.Lerp(lowSpeedSlipAngle, highSpeedSlipAngle, CalculateUtil.MapRangeClamped(_linearVelocityLocal.magnitude, 3.0f, 6.0f, 0.0f, 1.0f));
             //Map Wheel Slip To Friction Curve
-            _lateralGrip = CalculateUtil.MapRangeClamped(Mathf.Abs(slipAngle), 0.0f, slipAnglePeak, 0.0f, 1.0f) * Mathf.Sign(slipAngle); //Pre-Pacejka
+            _lateralGrip = CalculateUtil.MapRangeClamped(Mathf.Abs(slipAngle), 0.0f, slipAnglePeak, 0.0f, 1.0f) * Mathf.Sign(slipAngle)* _runtimeGripMultiplier;; //Pre-Pacejka ()
         }
 
         private void CalculateLongitudinalFriction(float torque)
@@ -149,7 +154,7 @@ namespace RacingSimulation.Runtime.Physics
             float slipSpeed = WheelAngularVelocity - _angularVelocityLocal.z;
 
             //Map Wheel Slip To Friction Curve
-            _longitudinalGrip = CalculateUtil.MapRangeClamped(Mathf.Abs(slipSpeed), 0.0f, slipSpeedPeak, 0.0f, 1.0f) * Mathf.Sign(slipSpeed); //Pre-Pacejka
+            _longitudinalGrip = CalculateUtil.MapRangeClamped(Mathf.Abs(slipSpeed), 0.0f, slipSpeedPeak, 0.0f, 1.0f) * Mathf.Sign(slipSpeed)* _runtimeGripMultiplier;; //Pre-Pacejka
         }
 
         void ApplyFrictionForce()

@@ -24,10 +24,12 @@ namespace RacingSimulation.Runtime
         private float _clutchInput;
         private float _steeringInput;
         private float _starterInput;
+        private float _activeFinalDriveRatio;
 
         public void Init(VehicleData data)
         {
             _data = data;
+            _activeFinalDriveRatio = _data.FinalDriveRatio;
             
             for (int i = 0; i < wheels.Length; i++)
             {
@@ -40,6 +42,16 @@ namespace RacingSimulation.Runtime
             engine.Init(_data.EngineData);
             gearbox.Init(_data.GearboxData);
             engineAudio.Init();
+        }
+
+        //외부 접근용 메서드 추가(외부데이터 연동)
+        public void SetRuntimeFinalDriveRatio(float newRatio)
+        {
+            _activeFinalDriveRatio = newRatio;
+        }
+        public Wheel[] GetWheels()
+        {
+            return wheels;
         }
 
         private void UpdateInputs()
@@ -81,12 +93,12 @@ namespace RacingSimulation.Runtime
             for (int i = 0; i < Substeps; i++)
             {
                 engine.UpdatePhysics(subDelta, _throttleInput, _starterInput, clutch.ClutchTorque);
-                clutch.UpdatePhysics(_clutchInput, gearbox.InGear, engine.AngularVelocity, gearbox.GetUpstreamAngularVelocity(Differential.GetUpstreamAngularVelocity(new Vector2(wheels[2].WheelAngularVelocity, wheels[3].WheelAngularVelocity), _data.FinalDriveRatio)));
+                clutch.UpdatePhysics(_clutchInput, gearbox.InGear, engine.AngularVelocity, gearbox.GetUpstreamAngularVelocity(Differential.GetUpstreamAngularVelocity(new Vector2(wheels[2].WheelAngularVelocity, wheels[3].WheelAngularVelocity), _activeFinalDriveRatio)));
                 gearbox.UpdatePhysics();
                 wheels[0].UpdatePhysicsDrivetrain(subDelta, 0.0f);
                 wheels[1].UpdatePhysicsDrivetrain(subDelta, 0.0f);
-                wheels[2].UpdatePhysicsDrivetrain(subDelta, Differential.GetDownstreamTorque(gearbox.GetDownstreamTorque(clutch.ClutchTorque), _data.FinalDriveRatio).x);
-                wheels[3].UpdatePhysicsDrivetrain(subDelta, Differential.GetDownstreamTorque(gearbox.GetDownstreamTorque(clutch.ClutchTorque), _data.FinalDriveRatio).y);
+                wheels[2].UpdatePhysicsDrivetrain(subDelta, Differential.GetDownstreamTorque(gearbox.GetDownstreamTorque(clutch.ClutchTorque), _activeFinalDriveRatio).x);
+                wheels[3].UpdatePhysicsDrivetrain(subDelta, Differential.GetDownstreamTorque(gearbox.GetDownstreamTorque(clutch.ClutchTorque), _activeFinalDriveRatio).y); //_data.FinalDriveRatio -> _activeFinalDriveRatio로 변경
             }
         }
 

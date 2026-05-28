@@ -1685,6 +1685,21 @@ MonoBehaviour:
   starterText: {fileID: 520288915}
   gearboxText: {fileID: 611298923}
   loadButton: {fileID: 1850677231}
+--- !u!114 &723640321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723640317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f0a5190f071264ea4707ef95d59ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestParser
+  vehicle: {fileID: 6150340945011040541}
+  uiController: {fileID: 723640320}
+  engineData: {fileID: 11400000, guid: af8be6bc7f66e634b8c0426e50c9be13, type: 2}
 --- !u!1 &739150777
 GameObject:
   m_ObjectHideFlags: 0

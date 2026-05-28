@@ -25,6 +25,10 @@ namespace RacingSimulation.Runtime.Physics
             //Set engine to idle
             AngularVelocity = CalculateUtil.Rpm2Rads(_data.IdleRpm);
             EngineRpm = CalculateUtil.Rads2Rpm(AngularVelocity);
+            Throttle = 0.0f;
+            _throttleCut = false;
+            _instability = 0.0f;
+            _timer = 0.0f;            
         }
 
         public void UpdatePhysics(float delta, float throttleInput, float starterInput, float loadTorque)

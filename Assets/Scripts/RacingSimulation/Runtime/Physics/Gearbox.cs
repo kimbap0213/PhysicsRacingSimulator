@@ -19,6 +19,12 @@ namespace RacingSimulation.Runtime.Physics
             _data = data;
             InGear = false;
             _currentGear = 1;
+            _currentGearRatio = 0.0f;
+            if (_currentShiftCoroutine != null)
+            {
+                StopCoroutine(_currentShiftCoroutine);
+                _currentShiftCoroutine = null;
+            }
         }
 
         public void UpdatePhysics()

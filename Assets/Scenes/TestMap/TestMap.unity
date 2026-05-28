@@ -1555,6 +1555,12 @@ GameObject:
   - component: {fileID: 2897383102606518084}
   - component: {fileID: 4315051518739207001}
   - component: {fileID: 1672590345078273316}
+  - component: {fileID: 4315051518739207007}
+  - component: {fileID: 4315051518739207006}
+  - component: {fileID: 4315051518739207005}
+  - component: {fileID: 4315051518739207004}
+  - component: {fileID: 4315051518739207003}
+  - component: {fileID: 4315051518739207002}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -1917,6 +1923,101 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2543440950566479425}
   m_Mesh: {fileID: 6324037702088267975, guid: f96e013ffc9fca341bcbf5e62c136a09, type: 3}
+--- !u!114 &4315051518739207002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2543440950566479425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0225a6f96c447e848976a17a466530a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RacingSimulation.Runtime.Physics.Gearbox
+--- !u!114 &4315051518739207003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2543440950566479425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a642b0593b3b6d4ebb25c9f1b17434d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RacingSimulation.Runtime.Physics.Clutch
+--- !u!114 &4315051518739207004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2543440950566479425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99b2ea19baf540c45bbd49b18c8f9128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RacingSimulation.Runtime.Audio.EngineAudio
+  engineClips: []
+  rpmInterval: 0
+--- !u!114 &4315051518739207005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2543440950566479425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5772575b799faeb478b5f75fb8b801d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RacingSimulation.Runtime.Physics.Engine
+--- !u!114 &4315051518739207006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2543440950566479425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea3b955455c44deb538cfaaf6a1bd33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RacingSimulation.Core.Controllers.VehicleTuningController
+  vehicle: {fileID: 0}
+  vehicleData: {fileID: 0}
+--- !u!114 &4315051518739207007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2543440950566479425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35120dee7bffc4c9da0398198e2c08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RacingSimulation.Runtime.Vehicle
+  engine: {fileID: 4315051518739207005}
+  clutch: {fileID: 4315051518739207003}
+  gearbox: {fileID: 4315051518739207002}
+  wheels:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  steerings:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  visuals:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  engineAudio: {fileID: 4315051518739207004}
 --- !u!1 &4519379382267222901
 GameObject:
   m_ObjectHideFlags: 0

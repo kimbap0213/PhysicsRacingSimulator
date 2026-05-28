@@ -11,22 +11,48 @@ namespace RacingSimulation.Core.Managers
 {
     public class FlowManager : MonoBehaviour
     {
-        [SerializeField] private Vehicle vehicle;
         [SerializeField] private UIController uiController;
         [SerializeField] private VehicleData vehicleData;
+        [SerializeField] private Vehicle[] vehicles;
+        [SerializeField] private Transform vehicleParent;
+        private Vehicle _vehicle;
         
         private void Awake()
         {
-            vehicle.Init(vehicleData);
-            vehicle.IsInitialized = true;
+            SetVehicleData(vehicleData);
+            _vehicle.IsInitialized = true;
             
             uiController.AddLoadAction(OnButtonClicked);
-            uiController.Init(vehicle, vehicle.GetComponent<Rigidbody>());
+            uiController.Init(_vehicle, _vehicle.GetComponent<Rigidbody>());
+        }
+
+        private void SetVehicleData(VehicleData data)
+        {
+            if (_vehicle != null)
+            {
+                Destroy(_vehicle.gameObject);
+            }
+            
+            if (data.WheelDatas[0].RestLength < 0.4f)
+            {
+                _vehicle = Instantiate(vehicles[0], vehicleParent);
+            }
+            else if (data.WheelDatas[0].RestLength < 0.6f)
+            {
+                _vehicle = Instantiate(vehicles[1], vehicleParent);
+            }
+            else
+            {
+                _vehicle = Instantiate(vehicles[2], vehicleParent);
+            }
+            Debug.Log(data.WheelDatas[0].RestLength);
+            
+            _vehicle.Init(vehicleData);
         }
 
         private void OnButtonClicked()
         {
-            vehicle.IsInitialized = false;
+            _vehicle.IsInitialized = false;
         
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "XML Files (*.xml)|*.xml";
@@ -41,8 +67,8 @@ namespace RacingSimulation.Core.Managers
             document.Load(openFileDialog.FileName);
             VehicleData data = VehicleDataParser.ParseVehicleData(document);
             data.EngineData.SetTorqueCurve(vehicleData.EngineData.TorqueCurve);
-            vehicle.Init(data);
-            uiController.Init(vehicle, vehicle.GetComponent<Rigidbody>());
+            SetVehicleData(data);
+            uiController.Init(_vehicle, _vehicle.GetComponent<Rigidbody>());
         
             StartCoroutine(InitializeCoroutine());
         }
@@ -52,7 +78,7 @@ namespace RacingSimulation.Core.Managers
             yield return new WaitForEndOfFrame();
             yield return new WaitForFixedUpdate();
         
-            vehicle.IsInitialized = true;
+            _vehicle.IsInitialized = true;
         }
     }
 }

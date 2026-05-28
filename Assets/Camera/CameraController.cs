@@ -47,8 +47,8 @@ public class CameraController : MonoBehaviour
     void Awake()
     {
         orbitOriginRotation = Vector3.zero;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame

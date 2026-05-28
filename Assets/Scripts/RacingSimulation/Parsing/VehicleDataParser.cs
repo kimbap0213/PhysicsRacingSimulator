@@ -32,7 +32,6 @@ namespace RacingSimulation.Parsing
             }
             ClutchData clutchData = ScriptableObject.CreateInstance<ClutchData>();
             clutchData.Initialize(clutchDamping, clutchTorqueCapacity, clutchStiffness);
-            Debug.Log("Clutch Data Parsed: " + clutchDamping + ", " + clutchTorqueCapacity + ", " + clutchStiffness);
             return clutchData;
         }
         
@@ -148,7 +147,7 @@ namespace RacingSimulation.Parsing
             GearboxData gearbox = null;
             WheelData[] wheels = new WheelData[4];
             SteeringData[] steerings = new SteeringData[4];
-            int wheelcount = 0,steeringcount = 0;
+            int wheelcount = 0, steeringcount = 0;
             float throttleSensitivity = 0f, brakeSensitivity = 0f, clutchSensitivity = 0f, steeringSensitivity = 0f, finalDriveRatio = 0f;
 
             XmlElement nodes = data["Vehicle"];
@@ -157,7 +156,6 @@ namespace RacingSimulation.Parsing
             {
                 XmlElement element = childNode as XmlElement;
 
-                Debug.Log(element.InnerText);
                 switch (element.Name)
                 {
                     case "Engine":
@@ -212,7 +210,7 @@ namespace RacingSimulation.Parsing
                 switch (element.Name)
                 {
                     case "LayerMask":
-                        layerMask = (LayerMask)int.Parse(element.InnerText);
+                        layerMask = int.Parse(element.InnerText);
                         break;
                     case "RestLength":
                         restLength = float.Parse(element.InnerText);

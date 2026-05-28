@@ -8,23 +8,12 @@ namespace RacingSimulation.Runtime.Visual
         private Wheel _wheel;
         private Steering _steering;
         private float _wheelRot;
-        Vector3 _initialLocalPos = Vector3.zero;
 
         public void Init(Wheel wheel, Steering steering)
         {
-            if (_wheel == null)
-            {
-                _initialLocalPos = transform.localPosition;
-            }
-            else
-            {
-                transform.localPosition = _initialLocalPos;
-            }
-
             _wheel = wheel;
             _steering = steering;
             _wheelRot = 0.0f;
-
         }
 
         public void UpdateVisuals(float delta)

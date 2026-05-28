@@ -13,6 +13,7 @@ namespace RacingSimulation.Runtime.Physics
         public void Init(SteeringData data)
         {
             _data = data;
+            SteerAngle = 0.0f;
         }
 
         public void UpdatePhysics(float steeringInput)

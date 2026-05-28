@@ -31,6 +31,18 @@ namespace RacingSimulation.Runtime.Physics
         public void Init(WheelData data)
         {
             _data = data;
+            CurrentLength = 0f;
+            WheelAngularVelocity = 0f;
+            _deltaTime = 0f;
+            _isGrounded = false;
+            _hit = new RaycastHit();
+            _suspensionForce = Vector3.zero;
+            _lastLength = 0f;
+            _linearVelocityLocal = Vector3.zero;
+            _angularVelocityLocal = Vector3.zero;
+            _longitudinalDir = Vector3.zero;
+            _lateralDir = Vector3.zero;
+            _lateralGrip = 0f;
         }
 
         public void UpdatePhysicsPre(float delta)

@@ -50,5 +50,10 @@ namespace RacingSimulation.Data
             this.frictionLossCoefficient = frictionLossCoefficient;
             this.inertia = inertia;
         }
+
+        public void SetTorqueCurve(AnimationCurve torqueCurve)
+        {
+            this.torqueCurve = torqueCurve;
+        }
     }
 }

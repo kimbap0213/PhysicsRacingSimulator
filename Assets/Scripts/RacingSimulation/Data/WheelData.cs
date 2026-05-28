@@ -20,11 +20,13 @@ namespace RacingSimulation.Data
         [Header("Wheel Motion - Inputs")]
         [SerializeField] private float wheelRadius;
         [SerializeField] private float wheelInertia;
+        [SerializeField] private float maxBrakeTorque;
         public float WheelRadius => wheelRadius;
         public float WheelInertia => wheelInertia;
+        public float MaxBrakeTorque => maxBrakeTorque;
 
         public void Initialize(LayerMask layerMask, float restLength, float springStiffness, float damperStiffness,
-            float wheelRadius, float wheelInertia)
+            float wheelRadius, float wheelInertia, float maxBrakeTorque)
         {
             this.layerMask = layerMask;
             this.restLength = restLength;
@@ -32,6 +34,7 @@ namespace RacingSimulation.Data
             this.damperStiffness = damperStiffness;
             this.wheelRadius = wheelRadius;
             this.wheelInertia = wheelInertia;
+            this.maxBrakeTorque = maxBrakeTorque;
         }
     }
 }

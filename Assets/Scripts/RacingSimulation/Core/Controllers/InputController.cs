@@ -11,7 +11,8 @@ namespace RacingSimulation.Core.Controllers
         
         public void Init(Vehicle vehicle)
         {
-            _onUpdate.AddListener(() => vehicle.SetThrottleInput(InputUtil.GetVerticalInput(), Time.deltaTime));
+            _onUpdate.AddListener(() => vehicle.SetThrottleInput(Mathf.Max(InputUtil.GetVerticalInput(), 0.0f), Time.deltaTime));
+            _onUpdate.AddListener(() => vehicle.SetBrakeInput(Mathf.Abs(Mathf.Min(InputUtil.GetVerticalInput(), 0.0f)), Time.deltaTime));
             _onUpdate.AddListener(() => vehicle.SetClutchInput(InputUtil.GetKeyInput(KeyCode.X), Time.deltaTime));
             _onUpdate.AddListener(() => vehicle.SetSteeringInput(InputUtil.GetHorizontalInput(), Time.deltaTime));
             _onUpdate.AddListener(() => vehicle.SetStarterInput(InputUtil.GetKeyInput(KeyCode.K)));

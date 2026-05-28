@@ -26,9 +26,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7b0b7b1a35dd3624fbb81a97745e05ba, type: 2}
   - {fileID: 11400000, guid: fd080f86fd4c2f24fae1daf7c584d779, type: 2}
   throttleSensitivity: 10
+  brakeSensitivity: 10
   clutchSensitivity: 10
   steeringSensitivity: 10
   finalDriveRatio: 3.62
-  wheelbase: 2.75
-  rearTrackLength: 1.68
-  turningRadius: 4.56

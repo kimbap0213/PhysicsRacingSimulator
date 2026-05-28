@@ -22,6 +22,7 @@ namespace RacingSimulation.Runtime
 
         private VehicleData _data;
         private float _throttleInput;
+        private float _brakeInput;
         private float _clutchInput;
         private float _steeringInput;
         private float _starterInput;
@@ -49,6 +50,11 @@ namespace RacingSimulation.Runtime
         public void SetThrottleInput(float input, float delta)
         {
             _throttleInput = Mathf.MoveTowards(_throttleInput, input, delta * _data.ThrottleSensitivity);
+        }
+
+        public void SetBrakeInput(float input, float delta)
+        {
+            _brakeInput = Mathf.MoveTowards(_brakeInput, input, delta * _data.BrakeSensitivity);
         }
 
         public void SetClutchInput(float input, float delta)
@@ -100,14 +106,14 @@ namespace RacingSimulation.Runtime
                         new Vector2(wheels[2].WheelAngularVelocity, wheels[3].WheelAngularVelocity),
                         _data.FinalDriveRatio)));
                 gearbox.UpdatePhysics();
-                wheels[0].UpdatePhysicsDrivetrain(subDelta, 0.0f);
-                wheels[1].UpdatePhysicsDrivetrain(subDelta, 0.0f);
+                wheels[0].UpdatePhysicsDrivetrain(subDelta, 0.0f, _brakeInput);
+                wheels[1].UpdatePhysicsDrivetrain(subDelta, 0.0f, _brakeInput);
                 wheels[2].UpdatePhysicsDrivetrain(subDelta,
                     Differential.GetDownstreamTorque(gearbox.GetDownstreamTorque(clutch.ClutchTorque),
-                        _data.FinalDriveRatio).x);
+                        _data.FinalDriveRatio).x, _brakeInput);
                 wheels[3].UpdatePhysicsDrivetrain(subDelta,
                     Differential.GetDownstreamTorque(gearbox.GetDownstreamTorque(clutch.ClutchTorque),
-                        _data.FinalDriveRatio).y);
+                        _data.FinalDriveRatio).y, _brakeInput);
             }
         }
 

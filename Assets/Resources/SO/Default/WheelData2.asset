@@ -20,3 +20,4 @@ MonoBehaviour:
   damperStiffness: 12000
   wheelRadius: 0.32
   wheelInertia: 1.5
+  maxBrakeTorque: 800

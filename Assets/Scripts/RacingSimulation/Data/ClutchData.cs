@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace RacingSimulation.Data
 {
@@ -19,6 +20,11 @@ namespace RacingSimulation.Data
             this.clutchDamping = clutchDamping;
             this.clutchTorqueCapacity = clutchTorqueCapacity;
             this.clutchStiffness = clutchStiffness;
+        }
+
+        internal void Initialize(object maxTorque, object engagementPoint, object disengagementPoint)
+        {
+            throw new NotImplementedException();
         }
     }
 }

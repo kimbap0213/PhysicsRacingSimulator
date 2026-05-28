@@ -1626,6 +1626,7 @@ GameObject:
   - component: {fileID: 723640318}
   - component: {fileID: 723640319}
   - component: {fileID: 723640320}
+  - component: {fileID: 723640321}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -1743,7 +1744,7 @@ MonoBehaviour:
     clipOn: {fileID: 8300000, guid: dabfd3d3d928d7f4e90f072d4a696023, type: 3}
   - clipOff: {fileID: 8300000, guid: 5c2153167bd5ae44ca00c7fbfac3102d, type: 3}
     clipOn: {fileID: 8300000, guid: 0a73d5d7905ce6646884a2da417a1d67, type: 3}
-  rpmInterval: 0
+  rpmInterval: 1000
 --- !u!1 &867414287
 GameObject:
   m_ObjectHideFlags: 0

@@ -93,4 +93,4 @@
   <clutchSensitivity>15.0</clutchSensitivity>
   <steeringSensitivity>12.0</steeringSensitivity>
   <finalDriveRatio>4.10</finalDriveRatio>
-</VehicleConfigDTO>
+</Vehicle>

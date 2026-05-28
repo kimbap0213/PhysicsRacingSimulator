@@ -94,6 +94,7 @@ namespace RacingSimulation.Runtime
         {
             if (!IsInitialized)
                 return;
+            
             _input.UpdateInput();
         }
 

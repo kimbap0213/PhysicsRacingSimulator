@@ -33,6 +33,8 @@ namespace RacingSimulation.Runtime
         public float StarterInput => _starterInput;
         public int CurrentGear => gearbox.CurrentGear;
 
+        public bool IsInitialized { get; set; } = false;
+
         private readonly InputController _input = new();
 
         public void Init(VehicleData data)
@@ -90,6 +92,9 @@ namespace RacingSimulation.Runtime
 
         private void Update()
         {
+            if (!IsInitialized)
+                return;
+            
             _input.UpdateInput();
         }
 
@@ -133,6 +138,9 @@ namespace RacingSimulation.Runtime
 
         private void FixedUpdate()
         {
+            if (!IsInitialized)
+                return;
+            
             float delta = Time.fixedDeltaTime;
             float subDelta = delta / Substeps;
         

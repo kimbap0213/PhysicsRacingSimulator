@@ -163,7 +163,6 @@ namespace RacingSimulation.Runtime.Physics
             float slipSpeedPeak = 4.0f;
             float slipSpeed = WheelAngularVelocity - _angularVelocityLocal.z;
 
-            // Debug.Log($"Slip Speed: {slipSpeed}, Wheel: {WheelAngularVelocity}, Torque: {totalTorque}");
             //Map Wheel Slip To Friction Curve
             _longitudinalGrip = CalculateUtil.MapRangeClamped(Mathf.Abs(slipSpeed), 0.0f, slipSpeedPeak, 0.0f, 1.0f) * Mathf.Sign(slipSpeed); //Pre-Pacejka
         }

@@ -797,6 +797,7 @@ GameObject:
   - component: {fileID: 723640318}
   - component: {fileID: 723640319}
   - component: {fileID: 723640320}
+  - component: {fileID: 723640321}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -847,6 +848,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RacingSimulation.Core.Controllers.UIController
   vehicle: {fileID: 6150340945011040540}
   speedText: {fileID: 557354579}
+--- !u!114 &723640321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723640317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f0a5190f071264ea4707ef95d59ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestParser
+  vehicle: {fileID: 6150340945011040541}
 --- !u!1 &739150777
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,7 +920,7 @@ MonoBehaviour:
     clipOn: {fileID: 8300000, guid: dabfd3d3d928d7f4e90f072d4a696023, type: 3}
   - clipOff: {fileID: 8300000, guid: 5c2153167bd5ae44ca00c7fbfac3102d, type: 3}
     clipOn: {fileID: 8300000, guid: 0a73d5d7905ce6646884a2da417a1d67, type: 3}
-  rpmInterval: 0
+  rpmInterval: 1000
 --- !u!1 &867414287
 GameObject:
   m_ObjectHideFlags: 0

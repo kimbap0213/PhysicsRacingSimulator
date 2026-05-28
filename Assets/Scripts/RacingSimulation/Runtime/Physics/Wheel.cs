@@ -58,7 +58,7 @@ namespace RacingSimulation.Runtime.Physics
             }
         }
 
-        public void UpdatePhysicsDrivetrain(float delta, float driveTorque)
+        public void UpdatePhysicsDrivetrain(float delta, float driveTorque, float brakeFriction)
         {
             _deltaTime = delta;
 
@@ -66,7 +66,7 @@ namespace RacingSimulation.Runtime.Physics
             {
                 //Calculate the friction force (Fx, Fy)
                 CalculateLateralFriction();
-                CalculateLongitudinalFriction(driveTorque);
+                CalculateLongitudinalFriction(driveTorque, brakeFriction);
             }
             else
             {
@@ -133,11 +133,14 @@ namespace RacingSimulation.Runtime.Physics
             _lateralGrip = CalculateUtil.MapRangeClamped(Mathf.Abs(slipAngle), 0.0f, slipAnglePeak, 0.0f, 1.0f) * Mathf.Sign(slipAngle); //Pre-Pacejka
         }
 
-        private void CalculateLongitudinalFriction(float torque)
+        private void CalculateLongitudinalFriction(float torque, float brakeFriction)
         {
             //Calculate Torque Acting On Wheel
             float frictionTorque = _longitudinalGrip * Mathf.Max(_suspensionForce.y, 0.0f) * _data.WheelRadius;
-            float totalTorque = torque - frictionTorque;
+            float brakeTorque = Mathf.Abs(WheelAngularVelocity) > 0.01f
+                ? brakeFriction * _data.MaxBrakeTorque * Mathf.Sign(WheelAngularVelocity)
+                : 0.0f;
+            float totalTorque = torque - frictionTorque - brakeTorque;
 
             //Integrate Angular Velocity
             float wheelAngularAcceleration = totalTorque / _data.WheelInertia;
@@ -148,6 +151,7 @@ namespace RacingSimulation.Runtime.Physics
             float slipSpeedPeak = 4.0f;
             float slipSpeed = WheelAngularVelocity - _angularVelocityLocal.z;
 
+            // Debug.Log($"Slip Speed: {slipSpeed}, Wheel: {WheelAngularVelocity}, Torque: {totalTorque}");
             //Map Wheel Slip To Friction Curve
             _longitudinalGrip = CalculateUtil.MapRangeClamped(Mathf.Abs(slipSpeed), 0.0f, slipSpeedPeak, 0.0f, 1.0f) * Mathf.Sign(slipSpeed); //Pre-Pacejka
         }

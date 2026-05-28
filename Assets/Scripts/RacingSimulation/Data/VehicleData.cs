@@ -19,18 +19,21 @@ namespace RacingSimulation.Data
         
         [Header("Inputs")]
         [SerializeField] private float throttleSensitivity;
+        [SerializeField] private float brakeSensitivity;
         [SerializeField] private float clutchSensitivity;
         [SerializeField] private float steeringSensitivity;
         [SerializeField] private float finalDriveRatio;
         
         public float ThrottleSensitivity => throttleSensitivity;
+        public float BrakeSensitivity => brakeSensitivity;
         public float ClutchSensitivity => clutchSensitivity;
         public float SteeringSensitivity => steeringSensitivity;
         public float FinalDriveRatio => finalDriveRatio;
 
         public void Initialize(EngineData engineData, ClutchData clutchData, GearboxData gearboxData,
-            WheelData[] wheelDatas, SteeringData[] steeringDatas, float throttleSensitivity, float clutchSensitivity,
-            float steeringSensitivity, float finalDriveRatio)
+            WheelData[] wheelDatas, SteeringData[] steeringDatas, float throttleSensitivity, float brakeSensitivity,
+            float clutchSensitivity, float steeringSensitivity, float finalDriveRatio)
+
         {
             this.engineData = engineData;
             this.clutchData = clutchData;
@@ -38,6 +41,7 @@ namespace RacingSimulation.Data
             this.wheelDatas = wheelDatas;
             this.steeringDatas = steeringDatas;
             this.throttleSensitivity = throttleSensitivity;
+            this.brakeSensitivity = brakeSensitivity;
             this.clutchSensitivity = clutchSensitivity;
             this.steeringSensitivity = steeringSensitivity;
             this.finalDriveRatio = finalDriveRatio;

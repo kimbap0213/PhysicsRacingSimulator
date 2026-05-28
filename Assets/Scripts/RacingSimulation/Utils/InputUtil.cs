@@ -4,7 +4,7 @@ namespace RacingSimulation.Utils
 {
     public static class InputUtil
     {
-        public static float GetVerticalInput() => Mathf.Max(Input.GetAxisRaw("Vertical"), 0.0f);
+        public static float GetVerticalInput() => Input.GetAxisRaw("Vertical");
 
         public static float GetHorizontalInput() => Input.GetAxisRaw("Horizontal");
         

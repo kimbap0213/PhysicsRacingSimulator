@@ -1,3 +1,4 @@
+using RacingSimulation.Core.Controllers;
 using RacingSimulation.Data;
 using RacingSimulation.Runtime.Audio;
 using RacingSimulation.Runtime.Physics;
@@ -25,6 +26,8 @@ namespace RacingSimulation.Runtime
         private float _steeringInput;
         private float _starterInput;
 
+        private readonly InputController _input = new();
+
         public void Init(VehicleData data)
         {
             _data = data;
@@ -40,31 +43,42 @@ namespace RacingSimulation.Runtime
             engine.Init(_data.EngineData);
             gearbox.Init(_data.GearboxData);
             engineAudio.Init();
+            _input.Init(this);
         }
 
-        private void UpdateInputs()
+        public void SetThrottleInput(float input, float delta)
         {
-            float delta = Time.deltaTime;
-            
-            _throttleInput = Mathf.MoveTowards(_throttleInput, InputUtil.GetVerticalInput(), delta * _data.ThrottleSensitivity);
-            _clutchInput = Mathf.MoveTowards(_clutchInput, InputUtil.GetKeyInput(KeyCode.X), delta * _data.ClutchSensitivity);
-            _steeringInput = Mathf.MoveTowards(_steeringInput, InputUtil.GetHorizontalInput(), delta * _data.SteeringSensitivity);
-            _starterInput = InputUtil.GetKeyInput(KeyCode.K);
+            _throttleInput = Mathf.MoveTowards(_throttleInput, input, delta * _data.ThrottleSensitivity);
+        }
+
+        public void SetClutchInput(float input, float delta)
+        {
+            _clutchInput = Mathf.MoveTowards(_clutchInput, input, delta * _data.ClutchSensitivity);
+        }
+
+        public void SetSteeringInput(float input, float delta)
+        {
+            _steeringInput = Mathf.MoveTowards(_steeringInput, input, delta * _data.SteeringSensitivity);
+        }
+
+        public void SetStarterInput(float input)
+        {
+            _starterInput = input;
+        }
+
+        public void GearShiftUp()
+        {
+            gearbox.ShiftUp();
+        }
+
+        public void GearShiftDown()
+        {
+            gearbox.ShiftDown();
         }
 
         private void Update()
         {
-            //Update inputs
-            UpdateInputs();
-            
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                gearbox.ShiftUp();
-            }
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                gearbox.ShiftDown();
-            }
+            _input.UpdateInput();
         }
 
         private void PreDrivetrainLoop(float delta)
@@ -81,12 +95,19 @@ namespace RacingSimulation.Runtime
             for (int i = 0; i < Substeps; i++)
             {
                 engine.UpdatePhysics(subDelta, _throttleInput, _starterInput, clutch.ClutchTorque);
-                clutch.UpdatePhysics(_clutchInput, gearbox.InGear, engine.AngularVelocity, gearbox.GetUpstreamAngularVelocity(Differential.GetUpstreamAngularVelocity(new Vector2(wheels[2].WheelAngularVelocity, wheels[3].WheelAngularVelocity), _data.FinalDriveRatio)));
+                clutch.UpdatePhysics(_clutchInput, gearbox.InGear, engine.AngularVelocity,
+                    gearbox.GetUpstreamAngularVelocity(Differential.GetUpstreamAngularVelocity(
+                        new Vector2(wheels[2].WheelAngularVelocity, wheels[3].WheelAngularVelocity),
+                        _data.FinalDriveRatio)));
                 gearbox.UpdatePhysics();
                 wheels[0].UpdatePhysicsDrivetrain(subDelta, 0.0f);
                 wheels[1].UpdatePhysicsDrivetrain(subDelta, 0.0f);
-                wheels[2].UpdatePhysicsDrivetrain(subDelta, Differential.GetDownstreamTorque(gearbox.GetDownstreamTorque(clutch.ClutchTorque), _data.FinalDriveRatio).x);
-                wheels[3].UpdatePhysicsDrivetrain(subDelta, Differential.GetDownstreamTorque(gearbox.GetDownstreamTorque(clutch.ClutchTorque), _data.FinalDriveRatio).y);
+                wheels[2].UpdatePhysicsDrivetrain(subDelta,
+                    Differential.GetDownstreamTorque(gearbox.GetDownstreamTorque(clutch.ClutchTorque),
+                        _data.FinalDriveRatio).x);
+                wheels[3].UpdatePhysicsDrivetrain(subDelta,
+                    Differential.GetDownstreamTorque(gearbox.GetDownstreamTorque(clutch.ClutchTorque),
+                        _data.FinalDriveRatio).y);
             }
         }
 

@@ -26,6 +26,12 @@ namespace RacingSimulation.Runtime
         private float _clutchInput;
         private float _steeringInput;
         private float _starterInput;
+        public float ThrottleInput => _throttleInput;
+        public float BreakInput => _brakeInput;
+        public float ClutchInput => _brakeInput;
+        public float SteeringInput => _starterInput;
+        public float StarterInput => _starterInput;
+        public int CurrentGear => gearbox.CurrentGear;
 
         private readonly InputController _input = new();
 

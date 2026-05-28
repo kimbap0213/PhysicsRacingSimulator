@@ -10,6 +10,7 @@ namespace RacingSimulation.Runtime.Physics
 
         private GearboxData _data;
         private int _currentGear;
+        public int CurrentGear => _currentGear;
         private float _currentGearRatio;
         private Coroutine _currentShiftCoroutine = null;
 

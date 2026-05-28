@@ -1,4 +1,6 @@
-﻿namespace RacingSimulation.Core.Managers
+﻿using System.Windows.Forms;
+
+namespace RacingSimulation.Core.Managers
 {
     public class FlowManager
     {

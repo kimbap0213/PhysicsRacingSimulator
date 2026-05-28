@@ -39,7 +39,6 @@ namespace RacingSimulation.Runtime.Visual
                 _wheelRot -= 360.0f * Mathf.Sign(_wheelRot);
             }
 
-            Debug.Log(_wheel.WheelAngularVelocity + " " + Time.deltaTime + " " + Time.fixedDeltaTime + " " + _wheelRot + " " + _steering.SteerAngle);
             //Roll = Tire Roll (X); Yaw = Steering (Y); Pitch = Camber (Z) NOTE: If you want to have non-zero camber, place an empty at the wheel's origin, parent the wheel to it, and rotate the empty on the Z
             transform.localRotation = Quaternion.Euler(new Vector3(_wheelRot, _steering.SteerAngle, 0.0f)); //IMPORTANT: 0.0 fixes gimbal lock
         }

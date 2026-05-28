@@ -16,9 +16,9 @@ public class CameraController : MonoBehaviour
         public float defaultZoomDistance;
         public bool canOrbit;
         public bool isGlobal;
-        [Range(-90, 0)]
+        [Range(-90, 90)]
         public float verticalOrbitRangeMin;
-        [Range(0, 90)]
+        [Range(-90, 90)]
         public float verticalOrbitRangeMax;
     }
     public CameraPositions[] cameraPositions;
@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
     private Vector2 currentMousePos;
     private Vector2 lastMousePos;
     private Vector3 orbitOriginRotation;
+    public float moveIntensity;
 
     // public Transform globalOrbitTarget;
     
@@ -46,6 +47,8 @@ public class CameraController : MonoBehaviour
     void Awake()
     {
         orbitOriginRotation = Vector3.zero;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -64,20 +67,18 @@ public class CameraController : MonoBehaviour
 
         //Orbiting
         lastMousePos = currentMousePos;
-        currentMousePos = new Vector2(Input.mousePosition.x / Screen.width, Input.mousePosition.y / Screen.height);
+        currentMousePos = lastMousePos + new Vector2(Input.GetAxis("Mouse X") * moveIntensity, Input.GetAxis("Mouse Y") * moveIntensity);
         float mouseVelX = (currentMousePos.x - lastMousePos.x) / Time.deltaTime;
         float mouseVelY = (currentMousePos.y - lastMousePos.y) / Time.deltaTime;
 
         if(cameraPositions[currentTarget].canOrbit)
         {
             Vector3 futureOrbitOriginRotation = orbitOriginRotation;
-            if (Input.GetMouseButton(0))
-            {
-                futureOrbitOriginRotation.y += mouseVelX * orbitSpeed * Time.deltaTime;
-                futureOrbitOriginRotation.x -= mouseVelY * orbitSpeed * Time.deltaTime;
-                futureOrbitOriginRotation.x = Mathf.Clamp(futureOrbitOriginRotation.x, cameraPositions[currentTarget].verticalOrbitRangeMin, cameraPositions[currentTarget].verticalOrbitRangeMax);
-                newOrbitInput = true;
-            }
+            futureOrbitOriginRotation.y += mouseVelX * orbitSpeed * Time.deltaTime;
+            futureOrbitOriginRotation.x -= mouseVelY * orbitSpeed * Time.deltaTime;
+            futureOrbitOriginRotation.x = Mathf.Clamp(futureOrbitOriginRotation.x, cameraPositions[currentTarget].verticalOrbitRangeMin, cameraPositions[currentTarget].verticalOrbitRangeMax);
+            
+            newOrbitInput = true;
             orbitOriginRotation = futureOrbitOriginRotation;
         }
         if (cameraPositions[currentTarget].isGlobal)

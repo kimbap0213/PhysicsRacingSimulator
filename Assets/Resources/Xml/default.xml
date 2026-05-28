@@ -3,89 +3,89 @@
   <Engine>
     <IdleThrottle>0.5</IdleThrottle>
     <ThrottleSensitivity>0.85</ThrottleSensitivity>
-    <idleRpm>800</idleRpm>
-    <redlineRpm>7200</redlineRpm>
-    <throttleCutoffDuration>0.08</throttleCutoffDuration>
-    <starterTorque>60</starterTorque>
-    <initialFrictionTorque>40</initialFrictionTorque>
-    <frictionLossCoefficient>0.025</frictionLossCoefficient>
-    <inertia>0.5</inertia>
+    <IdleRpm>800</IdleRpm>
+    <RedlineRpm>7200</RedlineRpm>
+    <ThrottleCutoffDuration>0.08</ThrottleCutoffDuration>
+    <StarterTorque>60</StarterTorque>
+    <InitialFrictionTorque>40</InitialFrictionTorque>
+    <FrictionLossCoefficient>0.025</FrictionLossCoefficient>
+    <Inertia>0.5</Inertia>
   </Engine>
   <Clutch>
-    <clutchDamping>0.7</clutchDamping>
-    <clutchTorqueCapacity>500</clutchTorqueCapacity>
-    <clutchStiffness>35</clutchStiffness>
+    <ClutchDamping>0.7</ClutchDamping>
+    <ClutchTorqueCapacity>500</ClutchTorqueCapacity>
+    <ClutchStiffness>35</ClutchStiffness>
   </Clutch>
   <Gearbox>
-    <gearRatios>-3.75</gearRatios>
-    <gearRatios>0</gearRatios>
-    <gearRatios>4.23</gearRatios>
-    <gearRatios>2.53</gearRatios>
-    <gearRatios>1.67</gearRatios>
-    <gearRatios>1.23</gearRatios>
-    <gearRatios>1.0</gearRatios>
-    <gearRatios>0.83</gearRatios>
-    <shiftDuration>0.2</shiftDuration>
+    <GearRatios>-3.75</GearRatios>
+    <GearRatios>0</GearRatios>
+    <GearRatios>4.23</GearRatios>
+    <GearRatios>2.53</GearRatios>
+    <GearRatios>1.67</GearRatios>
+    <GearRatios>1.23</GearRatios>
+    <GearRatios>1.0</GearRatios>
+    <GearRatios>0.83</GearRatios>
+    <ShiftDuration>0.2</ShiftDuration>
   </Gearbox>
   <Wheel>
-    <layerMask>63</layerMask>
-    <restLength>0.5</restLength>
-    <springStiffness>60000</springStiffness>
-    <damperStiffness>12000</damperStiffness>
-    <wheelRadius>0.32</wheelRadius>
-    <wheelInertia>1.5</wheelInertia>
-    <maxBrakeTorque>800</maxBrakeTorque>
+    <LayerMask>63</LayerMask>
+    <RestLength>0.5</RestLength>
+    <SpringStiffness>60000</SpringStiffness>
+    <DamperStiffness>12000</DamperStiffness>
+    <WheelRadius>0.32</WheelRadius>
+    <WheelInertia>1.5</WheelInertia>
+    <MaxBrakeTorque>800</MaxBrakeTorque>
   </Wheel>
   <Wheel>
-    <layerMask>63</layerMask>
-    <restLength>0.5</restLength>
-    <springStiffness>60000</springStiffness>
-    <damperStiffness>12000</damperStiffness>
-    <wheelRadius>0.32</wheelRadius>
-    <wheelInertia>1.5</wheelInertia>
-    <maxBrakeTorque>800</maxBrakeTorque>
+    <LayerMask>63</LayerMask>
+    <RestLength>0.5</RestLength>
+    <SpringStiffness>60000</SpringStiffness>
+    <DamperStiffness>12000</DamperStiffness>
+    <WheelRadius>0.32</WheelRadius>
+    <WheelInertia>1.5</WheelInertia>
+    <MaxBrakeTorque>800</MaxBrakeTorque>
   </Wheel>
   <Wheel>
-    <layerMask>63</layerMask>
-    <restLength>0.5</restLength>
-    <springStiffness>60000</springStiffness>
-    <damperStiffness>12000</damperStiffness>
-    <wheelRadius>0.32</wheelRadius>
-    <wheelInertia>1.5</wheelInertia>
-    <maxBrakeTorque>800</maxBrakeTorque>
+    <LayerMask>63</LayerMask>
+    <RestLength>0.5</RestLength>
+    <SpringStiffness>60000</SpringStiffness>
+    <DamperStiffness>12000</DamperStiffness>
+    <WheelRadius>0.32</WheelRadius>
+    <WheelInertia>1.5</WheelInertia>
+    <MaxBrakeTorque>800</MaxBrakeTorque>
   </Wheel>
   <Wheel>
-    <layerMask>63</layerMask>
-    <restLength>0.5</restLength>
-    <springStiffness>60000</springStiffness>
-    <damperStiffness>12000</damperStiffness>
-    <wheelRadius>0.32</wheelRadius>
-    <wheelInertia>1.5</wheelInertia>
-    <maxBrakeTorque>800</maxBrakeTorque>
+    <LayerMask>63</LayerMask>
+    <RestLength>0.5</RestLength>
+    <SpringStiffness>60000</SpringStiffness>
+    <DamperStiffness>12000</DamperStiffness>
+    <WheelRadius>0.32</WheelRadius>
+    <WheelInertia>1.5</WheelInertia>
+    <MaxBrakeTorque>800</MaxBrakeTorque>
   </Wheel>
   <Steering>
-    <steeringBehavior>Left</steeringBehavior>
-    <wheelbase>2.75</wheelbase>
-    <rearTrackLength>1.68</rearTrackLength>
-    <turningRadius>4.56</turningRadius>    
+    <SteeringBehavior>Left</SteeringBehavior>
+    <Wheelbase>2.75</Wheelbase>
+    <RearTrackLength>1.68</RearTrackLength>
+    <TurningRadius>4.56</TurningRadius>    
   </Steering>
   <Steering>
-    <steeringBehavior>Right</steeringBehavior>
-    <wheelbase>2.75</wheelbase>
-    <rearTrackLength>1.68</rearTrackLength>
-    <turningRadius>4.56</turningRadius>    
+    <SteeringBehavior>Right</SteeringBehavior>
+    <Wheelbase>2.75</Wheelbase>
+    <RearTrackLength>1.68</RearTrackLength>
+    <TurningRadius>4.56</TurningRadius>    
   </Steering>
   <Steering>
-    <steeringBehavior>Disabled</steeringBehavior>
-    <wheelbase>2.75</wheelbase>
-    <rearTrackLength>1.68</rearTrackLength>
-    <turningRadius>4.56</turningRadius>    
+    <SteeringBehavior>Disabled</SteeringBehavior>
+    <Wheelbase>2.75</Wheelbase>
+    <RearTrackLength>1.68</RearTrackLength>
+    <TurningRadius>4.56</TurningRadius>    
   </Steering>
   <Steering>
-    <steeringBehavior>Disabled</steeringBehavior>
-    <wheelbase>2.75</wheelbase>
-    <rearTrackLength>1.68</rearTrackLength>
-    <turningRadius>4.56</turningRadius>    
+    <SteeringBehavior>Disabled</SteeringBehavior>
+    <Wheelbase>2.75</Wheelbase>
+    <RearTrackLength>1.68</RearTrackLength>
+    <TurningRadius>4.56</TurningRadius>    
   </Steering>
   <ThrottleSensitivity>10</ThrottleSensitivity>
   <BrakeSensitivity>10</BrakeSensitivity>

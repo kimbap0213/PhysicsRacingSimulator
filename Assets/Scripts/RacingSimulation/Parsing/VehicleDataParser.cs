@@ -24,10 +24,13 @@ namespace RacingSimulation.Parsing
                     case "ClutchStiffness":
                         clutchStiffness = float.Parse(element.InnerText);
                         break;
+                    default:
+                        Debug.Log(element.Name + " not recognized");
+                        break;
                 }
 
             }
-            ClutchData clutchData = new ClutchData();
+            ClutchData clutchData = ScriptableObject.CreateInstance<ClutchData>();
             clutchData.Initialize(clutchDamping, clutchTorqueCapacity, clutchStiffness);
             Debug.Log("Clutch Data Parsed: " + clutchDamping + ", " + clutchTorqueCapacity + ", " + clutchStiffness);
             return clutchData;
@@ -35,26 +38,26 @@ namespace RacingSimulation.Parsing
         
         public static EngineData ParseEngineData(XmlElement data)
         {
-            float Idlethrottle = 0f, ThrottleSensitivity = 0f, IdleRpm = 0f, redlineRpm = 0f, ThrottleCutoffDuration = 0f, starterTorque = 0f, initialFrictionTorque = 0f, frictionLossCoefficient = 0f, inertia =0f;
+            float idleThrottle = 0f, throttleSensitivity = 0f, idleRpm = 0f, redlineRpm = 0f, throttleCutoffDuration = 0f, starterTorque = 0f, initialFrictionTorque = 0f, frictionLossCoefficient = 0f, inertia =0f;
             foreach (var childNode in data.ChildNodes)
             {
                 XmlElement element = childNode as XmlElement;
                 switch (element.Name)
                 {
-                    case "Idlethrottle":
-                        Idlethrottle = float.Parse(element.InnerText);
+                    case "IdleThrottle":
+                        idleThrottle = float.Parse(element.InnerText);
                         break;
                     case "ThrottleSensitivity":
-                        ThrottleSensitivity = float.Parse(element.InnerText);
+                        throttleSensitivity = float.Parse(element.InnerText);
                         break;
                     case "IdleRpm":
-                        IdleRpm = float.Parse(element.InnerText);
+                        idleRpm = float.Parse(element.InnerText);
                         break;
                     case "RedlineRpm":
                         redlineRpm = float.Parse(element.InnerText);
                         break;
                     case "ThrottleCutoffDuration":
-                        ThrottleCutoffDuration = float.Parse(element.InnerText);
+                        throttleCutoffDuration = float.Parse(element.InnerText);
                         break;
                     case "StarterTorque":
                         starterTorque = float.Parse(element.InnerText);
@@ -68,11 +71,14 @@ namespace RacingSimulation.Parsing
                     case "Inertia":
                         inertia = float.Parse(element.InnerText);
                         break;
+                    default:
+                        Debug.Log(element.Name + " not recognized");
+                        break;
                 }
 
             }
-            EngineData engineData = new EngineData();
-            engineData.Init(Idlethrottle, ThrottleSensitivity, IdleRpm, redlineRpm, ThrottleCutoffDuration, starterTorque, initialFrictionTorque, frictionLossCoefficient, inertia);
+            EngineData engineData = ScriptableObject.CreateInstance<EngineData>();
+            engineData.Init(idleThrottle, throttleSensitivity, idleRpm, redlineRpm, throttleCutoffDuration, starterTorque, initialFrictionTorque, frictionLossCoefficient, inertia);
             return engineData;
         }
         
@@ -92,10 +98,13 @@ namespace RacingSimulation.Parsing
                     case "ShiftDuration":
                         shiftDuration = float.Parse(element.InnerText);
                         break;
+                    default:
+                        Debug.Log(element.Name + " not recognized");
+                        break;
                 }
 
             }
-            GearboxData gearboxData = new GearboxData();
+            GearboxData gearboxData = ScriptableObject.CreateInstance<GearboxData>();
             gearboxData.Initialize(gearRatios, shiftDuration);
             return gearboxData;
         }
@@ -121,10 +130,13 @@ namespace RacingSimulation.Parsing
                     case "TurningRadius":
                         turningRadius = float.Parse(element.InnerText);
                         break;
+                    default:
+                        Debug.Log(element.Name + " not recognized");
+                        break;
                 }
 
             }
-            SteeringData steeringData = new SteeringData();
+            SteeringData steeringData = ScriptableObject.CreateInstance<SteeringData>();
             steeringData.Initialize(steeringBehavior, wheelbase, rearTrackLength, turningRadius);
             return steeringData;            
         }
@@ -178,10 +190,13 @@ namespace RacingSimulation.Parsing
                     case "FinalDriveRatio":
                         finalDriveRatio = float.Parse(element.InnerText);
                         break;
+                    default:
+                        Debug.Log(element.Name + " not recognized");
+                        break;
                 }
             }
 
-            VehicleData vehicleData = new VehicleData();
+            VehicleData vehicleData = ScriptableObject.CreateInstance<VehicleData>();
             vehicleData.Initialize(engine, clutch, gearbox, wheels, steerings, throttleSensitivity, brakeSensitivity, clutchSensitivity, steeringSensitivity, finalDriveRatio);
 
             return vehicleData;
@@ -217,10 +232,13 @@ namespace RacingSimulation.Parsing
                     case "MaxBrakeTorque":
                         maxBrakeTorque = float.Parse(element.InnerText);
                         break;
+                    default:
+                        Debug.Log(element.Name + " not recognized");
+                        break;
                 }
 
             }
-            WheelData wheelData = new WheelData();
+            WheelData wheelData = ScriptableObject.CreateInstance<WheelData>();
             wheelData.Initialize(layerMask, restLength, springStiffness, damperStiffness, wheelRadius, wheelInertia, maxBrakeTorque);
             return wheelData;
         }

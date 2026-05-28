@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using System.Windows.Forms;
 using System.Xml;
@@ -19,6 +20,8 @@ public class TestParser : MonoBehaviour
 
     private void OnButtonClicked()
     {
+        vehicle.IsInitialized = false;
+        
         OpenFileDialog openFileDialog = new OpenFileDialog();
         openFileDialog.Filter = "XML Files (*.xml)|*.xml";
 
@@ -33,5 +36,15 @@ public class TestParser : MonoBehaviour
         VehicleData data = VehicleDataParser.ParseVehicleData(document);
         data.EngineData.SetTorqueCurve(engineData.TorqueCurve);
         vehicle.Init(data);
+        
+        StartCoroutine(InitializeCoroutine());
+    }
+
+    private IEnumerator InitializeCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForFixedUpdate();
+        
+        vehicle.IsInitialized = true;
     }
 }

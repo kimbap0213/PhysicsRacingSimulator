@@ -13,6 +13,7 @@ namespace RacingSimulation.Core.Controllers
         private void Awake()
         {
             vehicle.Init(vehicleData);
+            vehicle.IsInitialized = true;
         }
     }
 }

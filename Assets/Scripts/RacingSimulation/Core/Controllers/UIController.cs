@@ -55,7 +55,7 @@ namespace RacingSimulation.Core.Controllers
         {
             gearboxText.text = $"Gear: {gearbox}";
             gearboxText.rectTransform.anchoredPosition = new Vector2(10f, -40f * count);
-            return gearbox >= 1 ? count + 1 : count;
+            return count + 1;
         }
 
         private int SetThrottle(float throttle, int count)

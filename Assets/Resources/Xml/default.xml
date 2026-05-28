@@ -13,11 +13,18 @@
   </Engine>
   <Clutch>
     <clutchDamping>0.7</clutchDamping>
-    <clutchTorqueCapacityclutchTorqueCapacity>500</clutchTorqueCapacity>
+    <clutchTorqueCapacity>500</clutchTorqueCapacity>
     <clutchStiffness>35</clutchStiffness>
   </Clutch>
   <Gearbox>
-    <gearRatios>8</gearRatios>
+    <gearRatios>-3.75</gearRatios>
+    <gearRatios>0</gearRatios>
+    <gearRatios>4.23</gearRatios>
+    <gearRatios>2.53</gearRatios>
+    <gearRatios>1.67</gearRatios>
+    <gearRatios>1.23</gearRatios>
+    <gearRatios>1.0</gearRatios>
+    <gearRatios>0.83</gearRatios>
     <shiftDuration>0.2</shiftDuration>
   </Gearbox>
   <Wheel>

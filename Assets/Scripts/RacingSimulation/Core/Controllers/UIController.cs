@@ -12,6 +12,7 @@ namespace RacingSimulation.Core.Controllers
     {
         [SerializeField] private Transform inGameTextPivot;
         [SerializeField] private TextMeshProUGUI speedText;
+        [SerializeField] private TextMeshProUGUI timeText;
         [SerializeField] private TextMeshProUGUI throttleText;
         [SerializeField] private TextMeshProUGUI brakeText;
         [SerializeField] private TextMeshProUGUI clutchText;
@@ -22,14 +23,40 @@ namespace RacingSimulation.Core.Controllers
         [SerializeField] private TextMeshProUGUI countDownText;
         [SerializeField] private EventTrigger eventTrigger;
         [SerializeField] private Button exitButton;
+        [SerializeField] private TextMeshProUGUI recordText;
 
         private Action _onFixedUpdate;
         private float _startTime;
         private Coroutine _countDownCoroutine = null;
+        private Coroutine _recordCoroutine = null;
 
         private void Awake()
         {
             exitButton.onClick.AddListener(Application.Quit);
+        }
+
+        public void ShowRecord(string record)
+        {
+            recordText.text = record;
+            if (_recordCoroutine != null)
+                return;
+            _recordCoroutine = StartCoroutine(RecordCoroutine());
+        }
+
+        private IEnumerator RecordCoroutine()
+        {
+            Debug.Log($"Record Start");
+            float elapsed = 0f;
+            do
+            {
+                elapsed += Time.deltaTime;
+                float factor = Mathf.SmoothStep(0f, 1f, Mathf.Lerp(0f, 1f, elapsed * 2f));
+                recordText.rectTransform.anchoredPosition = Vector2.Lerp(new Vector2(-100f, 0f), Vector2.zero, factor);
+                recordText.color = Color.Lerp(Color.clear, Color.white, factor);
+                yield return null;
+            } while (elapsed < 0.5f);
+
+            _recordCoroutine = null;
         }
 
         public void AddEvent(EventTriggerType type, Action<BaseEventData> action)
@@ -61,7 +88,7 @@ namespace RacingSimulation.Core.Controllers
             {
                 float factor = Mathf.SmoothStep(1f, 0f, (Mathf.Pow((0.5f - elapsed % 1f) * 2f, 5f) + 1f) / 2f);
                 countDownText.text = Mathf.CeilToInt(3f - elapsed).ToString();
-                countDownText.rectTransform.anchoredPosition = Vector3.Lerp(new Vector2(-100f, 0f), new Vector2(100f, 0f), factor);
+                countDownText.rectTransform.anchoredPosition = Vector2.Lerp(new Vector2(-100f, 0f), new Vector2(100f, 0f), factor);
                 countDownText.color = Color.Lerp(Color.clear, Color.white, Mathf.PingPong(factor * 2f, 1f));
                 elapsed += Time.deltaTime;
                 yield return null;
@@ -71,12 +98,25 @@ namespace RacingSimulation.Core.Controllers
             onCountDownEnd?.Invoke();
         }
 
-        public void Init(Vehicle vehicle, Rigidbody rb)
+        public void Init(Vehicle vehicle, Rigidbody rb, Func<float> time)
         {
-            _onFixedUpdate = () => OnFixedUpdate(vehicle, rb);
+            if (_countDownCoroutine != null)
+            {
+                StopCoroutine(_countDownCoroutine);
+                _countDownCoroutine = null;
+            }
+            
+            if (_recordCoroutine != null)
+            {
+                StopCoroutine(_recordCoroutine);
+                _recordCoroutine = null;
+            }
+            
+            recordText.color = Color.clear;
+            _onFixedUpdate = () => OnFixedUpdate(vehicle, rb, time);
         }
 
-        private void OnFixedUpdate(Vehicle vehicle, Rigidbody rb)
+        private void OnFixedUpdate(Vehicle vehicle, Rigidbody rb, Func<float> time)
         {
             int count = 0;
             count = SetSpeed(Mathf.RoundToInt(rb.linearVelocity.magnitude * 3.6f), Mathf.RoundToInt(vehicle.EngineRpm), count);
@@ -86,6 +126,13 @@ namespace RacingSimulation.Core.Controllers
             count = SetClutch(vehicle.ClutchInput, count);
             count = SetSteering(vehicle.SteeringInput, count);
             count = SetStarter(vehicle.StarterInput, count);
+            SetTimer(time);
+        }
+
+        private void SetTimer(Func<float> time)
+        {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(Time.time - time.Invoke());
+            timeText.text = $"{timeSpan.Minutes:00}:{timeSpan.Seconds:00}.{timeSpan.Milliseconds:000}";
         }
 
         private void FixedUpdate()

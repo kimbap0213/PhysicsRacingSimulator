@@ -53,6 +53,21 @@ namespace RacingSimulation.Runtime
             engineAudio.Init();
         }
 
+        public void ResetData()
+        {
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                steerings[i].Init(_data.SteeringDatas[i]);
+                wheels[i].Init(_data.WheelDatas[i]);
+                visuals[i].Init(wheels[i], steerings[i]);
+            }
+
+            clutch.Init(_data.ClutchData);
+            engine.Init(_data.EngineData);
+            gearbox.Init(_data.GearboxData);
+            engineAudio.Init();
+        }
+
         public void SetThrottleInput(float input, float delta)
         {
             _throttleInput = Mathf.MoveTowards(_throttleInput, input, delta * _data.ThrottleSensitivity);

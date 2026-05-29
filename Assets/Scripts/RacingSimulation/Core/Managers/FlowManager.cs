@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Windows.Forms;
 using System.Xml;
 using RacingSimulation.Core.Controllers;
 using RacingSimulation.Data;
 using RacingSimulation.Parsing;
 using RacingSimulation.Runtime;
+using RacingSimulation.Runtime.Racing;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Cursor = UnityEngine.Cursor;
@@ -17,6 +19,7 @@ namespace RacingSimulation.Core.Managers
         [SerializeField] private VehicleData vehicleData;
         [SerializeField] private Vehicle[] vehicles;
         [SerializeField] private Transform vehicleParent;
+        [SerializeField] private FlagArea[] flagAreas;
         private Vehicle _vehicle;
         private readonly InputController _input = new();
         private bool _isInitialized = false;
@@ -28,7 +31,33 @@ namespace RacingSimulation.Core.Managers
             {
                 _isInitialized = value;
                 uiController.SetActive(_isInitialized);
+                InitFlagArea();
             }
+        }
+        
+        private float _initializeTime = 0f;
+
+        private void OnEnterFlag()
+        {
+            foreach (var flag in flagAreas)
+            {
+                if (!flag.IsActivated)
+                    return;
+            }
+            
+            TimeSpan timeSpan = TimeSpan.FromSeconds(Time.time - _initializeTime);
+            uiController.ShowRecord(
+                $"Record\n{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}.{timeSpan.Milliseconds:D3}");
+        }
+
+        private void InitFlagArea()
+        {
+            foreach (var flag in flagAreas)
+            {
+                flag.Initialize(OnEnterFlag);
+            }
+            
+            _initializeTime = Time.time;
         }
 
         private void Awake()
@@ -75,9 +104,8 @@ namespace RacingSimulation.Core.Managers
             {
                 _vehicle = Instantiate(vehicles[2], vehicleParent);
             }
-            Debug.Log(data.WheelDatas[0].RestLength);
             
-            uiController.Init(_vehicle, _vehicle.GetComponent<Rigidbody>());
+            uiController.Init(_vehicle, _vehicle.GetComponent<Rigidbody>(), () => _initializeTime);
             _vehicle.Init(vehicleData);
             _input.Init(_vehicle);
             _input.AddKeyDownEvent(KeyCode.Escape, () => SetCursorLock(false));
@@ -104,7 +132,6 @@ namespace RacingSimulation.Core.Managers
             VehicleData data = VehicleDataParser.ParseVehicleData(document);
             data.EngineData.SetTorqueCurve(vehicleData.EngineData.TorqueCurve);
             SetVehicleData(data);
-            uiController.Init(_vehicle, _vehicle.GetComponent<Rigidbody>());
         
             StartCoroutine(InitializeCoroutine());
         }

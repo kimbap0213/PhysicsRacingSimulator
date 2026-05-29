@@ -32,6 +32,7 @@ namespace RacingSimulation.Runtime
         public float SteeringInput => _starterInput;
         public float StarterInput => _starterInput;
         public int CurrentGear => gearbox.CurrentGear;
+        public float EngineRpm => engine.EngineRpm;
 
         public bool IsInitialized { get; set; } = false;
 

@@ -11,6 +11,7 @@ namespace RacingSimulation.Core.Controllers
     public class UIController : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI speedText;
+        [SerializeField] private TextMeshProUGUI rpmText;
         [SerializeField] private TextMeshProUGUI throttleText;
         [SerializeField] private TextMeshProUGUI brakeText;
         [SerializeField] private TextMeshProUGUI clutchText;
@@ -29,7 +30,7 @@ namespace RacingSimulation.Core.Controllers
         private void OnFixedUpdate(Vehicle vehicle, Rigidbody rb)
         {
             int count = 0;
-            count = SetSpeed(Mathf.RoundToInt(rb.linearVelocity.magnitude * 3.6f), count);
+            count = SetSpeed(Mathf.RoundToInt(rb.linearVelocity.magnitude * 3.6f), Mathf.RoundToInt(vehicle.EngineRpm), count);
             count = SetGearbox(vehicle.CurrentGear, count);
             count = SetThrottle(vehicle.ThrottleInput, count);
             count = SetBrake(vehicle.BreakInput, count);
@@ -54,9 +55,9 @@ namespace RacingSimulation.Core.Controllers
             loadButton.image.rectTransform.anchoredPosition = new Vector2(10f, -40f * count);
         }
 
-        private int SetSpeed(float speed, int count)
+        private int SetSpeed(int speed, int rpm, int count)
         {
-            speedText.text = $"Speed: {speed} km/h";
+            speedText.text = $"Speed: {speed} km/h, {rpm} RPM";
             speedText.rectTransform.anchoredPosition = new Vector2(10f, -40f * count);
             return count + 1;
         }

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections;
 using RacingSimulation.Runtime;
-using RacingSimulation.Runtime.Physics;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace RacingSimulation.Core.Controllers
@@ -21,10 +20,31 @@ namespace RacingSimulation.Core.Controllers
         [SerializeField] private TextMeshProUGUI gearboxText;
         [SerializeField] private Button loadButton;
         [SerializeField] private TextMeshProUGUI countDownText;
+        [SerializeField] private EventTrigger eventTrigger;
+        [SerializeField] private Button exitButton;
 
         private Action _onFixedUpdate;
         private float _startTime;
         private Coroutine _countDownCoroutine = null;
+
+        private void Awake()
+        {
+            exitButton.onClick.AddListener(Application.Quit);
+        }
+
+        public void AddEvent(EventTriggerType type, Action<BaseEventData> action)
+        {
+            EventTrigger.Entry entry = new();
+            entry.eventID = type;
+            entry.callback.AddListener((data) => action?.Invoke(data));
+            eventTrigger.triggers.Add(entry);
+        }
+
+        public void SetActive(bool active)
+        {
+            inGameTextPivot.gameObject.SetActive(active);
+            countDownText.gameObject.SetActive(!active);
+        }
 
         public void StartCountDown(Action onCountDownEnd = null)
         {
@@ -46,8 +66,7 @@ namespace RacingSimulation.Core.Controllers
                 elapsed += Time.deltaTime;
                 yield return null;
             } while (elapsed < 3f);
-            
-            countDownText.gameObject.SetActive(false);
+
             _countDownCoroutine = null;
             onCountDownEnd?.Invoke();
         }
@@ -67,7 +86,6 @@ namespace RacingSimulation.Core.Controllers
             count = SetClutch(vehicle.ClutchInput, count);
             count = SetSteering(vehicle.SteeringInput, count);
             count = SetStarter(vehicle.StarterInput, count);
-            SetButtonLocation(count);
         }
 
         private void FixedUpdate()
@@ -78,11 +96,6 @@ namespace RacingSimulation.Core.Controllers
         public void AddLoadAction(Action action)
         {
             loadButton.onClick.AddListener(() => action?.Invoke());
-        }
-
-        private void SetButtonLocation(int count)
-        {
-            loadButton.image.rectTransform.anchoredPosition = new Vector2(10f, -40f * count);
         }
 
         private int SetSpeed(int speed, int rpm, int count)

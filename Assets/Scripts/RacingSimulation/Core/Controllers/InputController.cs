@@ -1,4 +1,5 @@
-﻿using RacingSimulation.Runtime;
+﻿using System;
+using RacingSimulation.Runtime;
 using RacingSimulation.Utils;
 using UnityEngine;
 using UnityEngine.Events;
@@ -27,6 +28,17 @@ namespace RacingSimulation.Core.Controllers
                 if (Input.GetKeyDown(KeyCode.B))
                 {
                     vehicle.GearShiftDown();
+                }
+            });
+        }
+
+        public void AddKeyDownEvent(KeyCode code, Action action)
+        {
+            _onUpdate.AddListener(() =>
+            {
+                if (Input.GetKeyDown(code))
+                {
+                    action?.Invoke();
                 }
             });
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Windows.Forms;
 using System.Xml;
 using RacingSimulation.Core.Controllers;
@@ -7,6 +6,8 @@ using RacingSimulation.Data;
 using RacingSimulation.Parsing;
 using RacingSimulation.Runtime;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using Cursor = UnityEngine.Cursor;
 
 namespace RacingSimulation.Core.Managers
 {
@@ -19,17 +20,36 @@ namespace RacingSimulation.Core.Managers
         private Vehicle _vehicle;
         private readonly InputController _input = new();
         private bool _isInitialized = false;
-        
+
+        public bool IsInitialized
+        {
+            get => _isInitialized;
+            set
+            {
+                _isInitialized = value;
+                uiController.SetActive(_isInitialized);
+            }
+        }
+
         private void Awake()
         {
+            IsInitialized = false;
             SetVehicleData(vehicleData);
             _vehicle.IsInitialized = true;
             uiController.AddLoadAction(OnButtonClicked);
+            uiController.AddEvent(EventTriggerType.PointerDown, (data) => SetCursorLock(true));
+            _input.AddKeyDownEvent(KeyCode.Escape, () => SetCursorLock(false));
+        }
+
+        private void SetCursorLock(bool isLock)
+        {
+            Cursor.visible = !isLock;
+            Cursor.lockState = isLock ? CursorLockMode.Locked : CursorLockMode.None;
         }
 
         private void Update()
         {
-            if (!_isInitialized)
+            if (!IsInitialized)
                 return;
             
             _input.UpdateInput();
@@ -37,7 +57,7 @@ namespace RacingSimulation.Core.Managers
 
         private void SetVehicleData(VehicleData data)
         {
-            _isInitialized = false;
+            IsInitialized = false;
             if (_vehicle != null)
             {
                 Destroy(_vehicle.gameObject);
@@ -60,12 +80,14 @@ namespace RacingSimulation.Core.Managers
             uiController.Init(_vehicle, _vehicle.GetComponent<Rigidbody>());
             _vehicle.Init(vehicleData);
             _input.Init(_vehicle);
-            uiController.StartCountDown(() => _isInitialized = true);
+            _input.AddKeyDownEvent(KeyCode.Escape, () => SetCursorLock(false));
+            uiController.StartCountDown(() => IsInitialized = true);
         }
 
         private void OnButtonClicked()
         {
-            _isInitialized = false;
+            SetCursorLock(false);
+            IsInitialized = false;
             _vehicle.IsInitialized = false;
         
             OpenFileDialog openFileDialog = new OpenFileDialog();

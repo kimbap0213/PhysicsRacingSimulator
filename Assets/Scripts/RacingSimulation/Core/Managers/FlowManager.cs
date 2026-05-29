@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Windows.Forms;
 using System.Xml;
 using RacingSimulation.Core.Controllers;
@@ -16,18 +17,27 @@ namespace RacingSimulation.Core.Managers
         [SerializeField] private Vehicle[] vehicles;
         [SerializeField] private Transform vehicleParent;
         private Vehicle _vehicle;
+        private readonly InputController _input = new();
+        private bool _isInitialized = false;
         
         private void Awake()
         {
             SetVehicleData(vehicleData);
             _vehicle.IsInitialized = true;
-            
             uiController.AddLoadAction(OnButtonClicked);
-            uiController.Init(_vehicle, _vehicle.GetComponent<Rigidbody>());
+        }
+
+        private void Update()
+        {
+            if (!_isInitialized)
+                return;
+            
+            _input.UpdateInput();
         }
 
         private void SetVehicleData(VehicleData data)
         {
+            _isInitialized = false;
             if (_vehicle != null)
             {
                 Destroy(_vehicle.gameObject);
@@ -47,11 +57,15 @@ namespace RacingSimulation.Core.Managers
             }
             Debug.Log(data.WheelDatas[0].RestLength);
             
+            uiController.Init(_vehicle, _vehicle.GetComponent<Rigidbody>());
             _vehicle.Init(vehicleData);
+            _input.Init(_vehicle);
+            uiController.StartCountDown(() => _isInitialized = true);
         }
 
         private void OnButtonClicked()
         {
+            _isInitialized = false;
             _vehicle.IsInitialized = false;
         
             OpenFileDialog openFileDialog = new OpenFileDialog();

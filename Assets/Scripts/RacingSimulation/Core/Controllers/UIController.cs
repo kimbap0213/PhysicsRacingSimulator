@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using RacingSimulation.Runtime;
 using RacingSimulation.Runtime.Physics;
 using TMPro;
@@ -10,8 +11,8 @@ namespace RacingSimulation.Core.Controllers
 {
     public class UIController : MonoBehaviour
     {
+        [SerializeField] private Transform inGameTextPivot;
         [SerializeField] private TextMeshProUGUI speedText;
-        [SerializeField] private TextMeshProUGUI rpmText;
         [SerializeField] private TextMeshProUGUI throttleText;
         [SerializeField] private TextMeshProUGUI brakeText;
         [SerializeField] private TextMeshProUGUI clutchText;
@@ -19,8 +20,37 @@ namespace RacingSimulation.Core.Controllers
         [SerializeField] private TextMeshProUGUI starterText;
         [SerializeField] private TextMeshProUGUI gearboxText;
         [SerializeField] private Button loadButton;
+        [SerializeField] private TextMeshProUGUI countDownText;
 
         private Action _onFixedUpdate;
+        private float _startTime;
+        private Coroutine _countDownCoroutine = null;
+
+        public void StartCountDown(Action onCountDownEnd = null)
+        {
+            if (_countDownCoroutine != null)
+                return;
+            
+            _countDownCoroutine = StartCoroutine(CountDownCoroutine(onCountDownEnd));
+        }
+
+        private IEnumerator CountDownCoroutine(Action onCountDownEnd)
+        {
+            float elapsed = 0f;
+            do
+            {
+                float factor = Mathf.SmoothStep(1f, 0f, (Mathf.Pow((0.5f - elapsed % 1f) * 2f, 5f) + 1f) / 2f);
+                countDownText.text = Mathf.CeilToInt(3f - elapsed).ToString();
+                countDownText.rectTransform.anchoredPosition = Vector3.Lerp(new Vector2(-100f, 0f), new Vector2(100f, 0f), factor);
+                countDownText.color = Color.Lerp(Color.clear, Color.white, Mathf.PingPong(factor * 2f, 1f));
+                elapsed += Time.deltaTime;
+                yield return null;
+            } while (elapsed < 3f);
+            
+            countDownText.gameObject.SetActive(false);
+            _countDownCoroutine = null;
+            onCountDownEnd?.Invoke();
+        }
 
         public void Init(Vehicle vehicle, Rigidbody rb)
         {

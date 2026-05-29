@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections;
 using RacingSimulation.Runtime;
-using RacingSimulation.Runtime.Physics;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace RacingSimulation.Core.Controllers
 {
     public class UIController : MonoBehaviour
     {
+        [SerializeField] private Transform inGameTextPivot;
         [SerializeField] private TextMeshProUGUI speedText;
         [SerializeField] private TextMeshProUGUI throttleText;
         [SerializeField] private TextMeshProUGUI brakeText;
@@ -18,8 +19,57 @@ namespace RacingSimulation.Core.Controllers
         [SerializeField] private TextMeshProUGUI starterText;
         [SerializeField] private TextMeshProUGUI gearboxText;
         [SerializeField] private Button loadButton;
+        [SerializeField] private TextMeshProUGUI countDownText;
+        [SerializeField] private EventTrigger eventTrigger;
+        [SerializeField] private Button exitButton;
 
         private Action _onFixedUpdate;
+        private float _startTime;
+        private Coroutine _countDownCoroutine = null;
+
+        private void Awake()
+        {
+            exitButton.onClick.AddListener(Application.Quit);
+        }
+
+        public void AddEvent(EventTriggerType type, Action<BaseEventData> action)
+        {
+            EventTrigger.Entry entry = new();
+            entry.eventID = type;
+            entry.callback.AddListener((data) => action?.Invoke(data));
+            eventTrigger.triggers.Add(entry);
+        }
+
+        public void SetActive(bool active)
+        {
+            inGameTextPivot.gameObject.SetActive(active);
+            countDownText.gameObject.SetActive(!active);
+        }
+
+        public void StartCountDown(Action onCountDownEnd = null)
+        {
+            if (_countDownCoroutine != null)
+                return;
+            
+            _countDownCoroutine = StartCoroutine(CountDownCoroutine(onCountDownEnd));
+        }
+
+        private IEnumerator CountDownCoroutine(Action onCountDownEnd)
+        {
+            float elapsed = 0f;
+            do
+            {
+                float factor = Mathf.SmoothStep(1f, 0f, (Mathf.Pow((0.5f - elapsed % 1f) * 2f, 5f) + 1f) / 2f);
+                countDownText.text = Mathf.CeilToInt(3f - elapsed).ToString();
+                countDownText.rectTransform.anchoredPosition = Vector3.Lerp(new Vector2(-100f, 0f), new Vector2(100f, 0f), factor);
+                countDownText.color = Color.Lerp(Color.clear, Color.white, Mathf.PingPong(factor * 2f, 1f));
+                elapsed += Time.deltaTime;
+                yield return null;
+            } while (elapsed < 3f);
+
+            _countDownCoroutine = null;
+            onCountDownEnd?.Invoke();
+        }
 
         public void Init(Vehicle vehicle, Rigidbody rb)
         {
@@ -29,14 +79,13 @@ namespace RacingSimulation.Core.Controllers
         private void OnFixedUpdate(Vehicle vehicle, Rigidbody rb)
         {
             int count = 0;
-            count = SetSpeed(Mathf.RoundToInt(rb.linearVelocity.magnitude * 3.6f), count);
+            count = SetSpeed(Mathf.RoundToInt(rb.linearVelocity.magnitude * 3.6f), Mathf.RoundToInt(vehicle.EngineRpm), count);
             count = SetGearbox(vehicle.CurrentGear, count);
             count = SetThrottle(vehicle.ThrottleInput, count);
             count = SetBrake(vehicle.BreakInput, count);
             count = SetClutch(vehicle.ClutchInput, count);
             count = SetSteering(vehicle.SteeringInput, count);
             count = SetStarter(vehicle.StarterInput, count);
-            SetButtonLocation(count);
         }
 
         private void FixedUpdate()
@@ -49,14 +98,9 @@ namespace RacingSimulation.Core.Controllers
             loadButton.onClick.AddListener(() => action?.Invoke());
         }
 
-        private void SetButtonLocation(int count)
+        private int SetSpeed(int speed, int rpm, int count)
         {
-            loadButton.image.rectTransform.anchoredPosition = new Vector2(10f, -40f * count);
-        }
-
-        private int SetSpeed(float speed, int count)
-        {
-            speedText.text = $"Speed: {speed} km/h";
+            speedText.text = $"Speed: {speed} km/h, {rpm} RPM";
             speedText.rectTransform.anchoredPosition = new Vector2(10f, -40f * count);
             return count + 1;
         }

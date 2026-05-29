@@ -32,10 +32,9 @@ namespace RacingSimulation.Runtime
         public float SteeringInput => _starterInput;
         public float StarterInput => _starterInput;
         public int CurrentGear => gearbox.CurrentGear;
+        public float EngineRpm => engine.EngineRpm;
 
         public bool IsInitialized { get; set; } = false;
-
-        private readonly InputController _input = new();
 
         public void Init(VehicleData data)
         {
@@ -52,7 +51,6 @@ namespace RacingSimulation.Runtime
             engine.Init(_data.EngineData);
             gearbox.Init(_data.GearboxData);
             engineAudio.Init();
-            _input.Init(this);
         }
 
         public void SetThrottleInput(float input, float delta)
@@ -88,14 +86,6 @@ namespace RacingSimulation.Runtime
         public void GearShiftDown()
         {
             gearbox.ShiftDown();
-        }
-
-        private void Update()
-        {
-            if (!IsInitialized)
-                return;
-            
-            _input.UpdateInput();
         }
 
         private void PreDrivetrainLoop(float delta)

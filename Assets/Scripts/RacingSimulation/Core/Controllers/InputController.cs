@@ -1,4 +1,5 @@
-﻿using RacingSimulation.Runtime;
+﻿using System;
+using RacingSimulation.Runtime;
 using RacingSimulation.Utils;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,6 +12,8 @@ namespace RacingSimulation.Core.Controllers
         
         public void Init(Vehicle vehicle)
         {
+            _onUpdate.RemoveAllListeners();
+            
             _onUpdate.AddListener(() => vehicle.SetThrottleInput(Mathf.Max(InputUtil.GetVerticalInput(), 0.0f), Time.deltaTime));
             _onUpdate.AddListener(() => vehicle.SetBrakeInput(Mathf.Abs(Mathf.Min(InputUtil.GetVerticalInput(), 0.0f)), Time.deltaTime));
             _onUpdate.AddListener(() => vehicle.SetClutchInput(InputUtil.GetKeyInput(KeyCode.X), Time.deltaTime));
@@ -25,6 +28,17 @@ namespace RacingSimulation.Core.Controllers
                 if (Input.GetKeyDown(KeyCode.B))
                 {
                     vehicle.GearShiftDown();
+                }
+            });
+        }
+
+        public void AddKeyDownEvent(KeyCode code, Action action)
+        {
+            _onUpdate.AddListener(() =>
+            {
+                if (Input.GetKeyDown(code))
+                {
+                    action?.Invoke();
                 }
             });
         }

@@ -40,6 +40,7 @@ namespace RacingSimulation.Data
             float throttleCutoffDuration, float starterTorque, float initialFrictionTorque,
             float frictionLossCoefficient, float inertia)
         {
+            Debug.Log("init" + redlineRpm);
             this.idleThrottle = idleThrottle;
             this.throttleStability = throttleStability;
             this.idleRpm = idleRpm;

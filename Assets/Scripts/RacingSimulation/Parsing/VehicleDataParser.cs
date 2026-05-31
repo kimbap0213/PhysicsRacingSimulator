@@ -77,6 +77,7 @@ namespace RacingSimulation.Parsing
 
             }
             EngineData engineData = ScriptableObject.CreateInstance<EngineData>();
+            Debug.Log("RedlineRpm: " + redlineRpm);
             engineData.Init(idleThrottle, throttleSensitivity, idleRpm, redlineRpm, throttleCutoffDuration, starterTorque, initialFrictionTorque, frictionLossCoefficient, inertia);
             return engineData;
         }

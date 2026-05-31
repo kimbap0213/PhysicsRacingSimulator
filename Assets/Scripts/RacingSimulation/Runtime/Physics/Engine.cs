@@ -48,6 +48,7 @@ namespace RacingSimulation.Runtime.Physics
             //Rev Limiter
             if (EngineRpm >= _data.RedlineRpm && !_throttleCut)
             {
+                Debug.Log(EngineRpm + " RPM - "+ _data.RedlineRpm+" Throttle Cutoff Engaged!");
                 StartCoroutine(ThrottleCutoff());
             }
 

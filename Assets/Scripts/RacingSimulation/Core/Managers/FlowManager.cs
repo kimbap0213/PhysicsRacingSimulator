@@ -106,7 +106,7 @@ namespace RacingSimulation.Core.Managers
             }
             
             uiController.Init(_vehicle, _vehicle.GetComponent<Rigidbody>(), () => _initializeTime);
-            _vehicle.Init(vehicleData);
+            _vehicle.Init(data);
             _input.Init(_vehicle);
             _input.AddKeyDownEvent(KeyCode.Escape, () => SetCursorLock(false));
             uiController.StartCountDown(() => IsInitialized = true);
